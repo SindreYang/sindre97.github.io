@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DCGAN,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. DCGAN 简介:如何把CNN与GAN结合？DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:点我  2. 网络结构： 首先看图：网络改进点:简单解释">
+<meta name="keywords" content="DCGAN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回顾-DCGAN">
+<meta property="og:url" content="http://yoursite.com/2018/12/24/回顾-DCGAN/index.html">
+<meta property="og:site_name" content="落叶无痕">
+<meta property="og:description" content="1. DCGAN 简介:如何把CNN与GAN结合？DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:点我  2. 网络结构： 首先看图：网络改进点:简单解释">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN\DCGAN.png">
+<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN\work.png">
+<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN/0.png">
+<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN/1.png">
+<meta property="og:updated_time" content="2018-12-25T12:00:25.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="回顾-DCGAN">
+<meta name="twitter:description" content="1. DCGAN 简介:如何把CNN与GAN结合？DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:点我  2. 网络结构： 首先看图：网络改进点:简单解释">
+<meta name="twitter:image" content="http://images.yx1024.top/回顾-DCGAN\DCGAN.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/24/回顾-DCGAN/">
+
+
+
+
+
+  <title>回顾-DCGAN | 落叶无痕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/sindre97" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶无痕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/回顾-DCGAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sindre">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶无痕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">回顾-DCGAN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T03:38:57+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/24/回顾-DCGAN/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/24/回顾-DCGAN/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-DCGAN-简介"><a href="#1-DCGAN-简介" class="headerlink" title="1. DCGAN 简介:"></a>1. DCGAN 简介:</h1><p>如何把CNN与GAN结合？<br>DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。<br>它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。<br>但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:<a href="https://arxiv.org/pdf/1511.06434.pdf" target="_blank" rel="noopener">点我</a></p>
+<hr>
+<h1 id="2-网络结构："><a href="#2-网络结构：" class="headerlink" title="2. 网络结构："></a>2. 网络结构：</h1><ul>
+<li><p>首先看图：<br><img src="http://images.yx1024.top/回顾-DCGAN\DCGAN.png" alt><br><strong>网络改进点:</strong><br><strong><font color="blue">简单解释下:<br>GAN 的第一层采用均匀噪声分布Z作为输入,因为它只是一个矩阵乘法操作所以可以称为全连接,但结果被重组为一个4维的张量,并作为卷积叠加（convolution stack）的开始。对于判别网络,最后卷积层是平滑的然后送入单个sigmoid输出。</font></strong></p>
+<ul>
+<li>1.使用步幅卷积替代确定性空间池化函数(比如最大池化)，允许网络学习自身的空间下采样的方法应用在生成网络当中，在判别网络中允许它学习自己的空间上采样。</li>
+<li>2.在卷积层的中间地带直接分别连接到生成网络的输入和判别网络的输出系统也可以很好的工作。<ul>
+<li>其次一个趋势是在最顶层的卷积后面去除全连接层特点。<font color="red">发现全局平均池化虽然增加了模型的稳定性但却影响了收敛速度。</font></li>
+</ul>
+</li>
+<li>3.最后是批量规范化:通过将输入的每个单元标准化为0均值与单位方差来稳定学习。<font color="red">有助于处理初始化不良导致的训练问题另外还有助于梯度流向更深的网络。</font><ul>
+<li><font color="red">不要批量规范化（batchnorm）将应用到生成网络的输出层和判别网络输入层可以避免直接对所有的层采取批量归一化,导致采样的振荡和模型的不稳定问题</font></li>
+</ul>
+</li>
+<li>4.使用有界激活可以让模型更快学习达到饱和并覆盖训练分布的颜色空间。在判别器中,发现LeakyReLU激活函数能够很好地工作,特别是对于更高分辨率的模型。</li>
+</ul>
+</li>
+</ul>
+<p><strong>总结:</strong><br><img src="http://images.yx1024.top/回顾-DCGAN\work.png" alt></p>
+<hr>
+<h3 id="训练细节上的改进"><a href="#训练细节上的改进" class="headerlink" title="训练细节上的改进:"></a>训练细节上的改进:</h3><ul>
+<li>1.训练图像除了缩放到tanh激活函数的[-1,1]范围之外,没有经过其他的预处理。</li>
+<li>2.所有的模型都是通过小批量随机梯度下降法进行训练的(小批量的大小是 128)</li>
+<li>3.所有权重的初始化为均值为 0 和方差为 0.02的正态分布。</li>
+<li>4.在LeakyReLU, 所有模型的leak的斜率设置为0.2。</li>
+<li>5.DCGAN是使用Adam优化程序调整超参数。建议使用的学习率是0.001，太高的话使用0.0002代替。</li>
+<li>6.优化器参数beta1，在建议的0.9训练动荡且不稳定，但降低到0.5是有利于模型的稳定。</li>
+</ul>
+<h1 id="3-pytorch-实现"><a href="#3-pytorch-实现" class="headerlink" title="3. pytorch 实现:"></a>3. pytorch 实现:</h1><p><strong> network.py</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">跟着图走</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment">#我们首先建立G</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">G</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,args)</span>:</span></span><br><span class="line">        super(G,self).__init__()</span><br><span class="line">        ngf = args.ngf  <span class="comment">#ndf 设置为128  卷积一般扩大两倍 参数为4,2,1</span></span><br><span class="line">        self.G_layer= nn.Sequential(</span><br><span class="line">            <span class="comment"># 输入的相当于nz*1*1</span></span><br><span class="line">            nn.ConvTranspose2d (args.nz, ngf * <span class="number">8</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">0</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d (ngf * <span class="number">8</span>),</span><br><span class="line">            nn.ReLU (<span class="literal">True</span>),</span><br><span class="line">            <span class="comment"># (ngf*8) x 4 x 4</span></span><br><span class="line">            nn.ConvTranspose2d (ngf * <span class="number">8</span>, ngf * <span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d (ngf * <span class="number">4</span>),</span><br><span class="line">            nn.ReLU (<span class="literal">True</span>),</span><br><span class="line">            <span class="comment"># (ngf*4) x 8 x 8</span></span><br><span class="line">            nn.ConvTranspose2d (ngf * <span class="number">4</span>, ngf * <span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d (ngf * <span class="number">2</span>),</span><br><span class="line">            nn.ReLU (<span class="literal">True</span>),</span><br><span class="line">            <span class="comment"># (ngf*2) x 16 x 16</span></span><br><span class="line">            nn.ConvTranspose2d (ngf * <span class="number">2</span>, ngf, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d (ngf),</span><br><span class="line">            nn.ReLU (<span class="literal">True</span>),</span><br><span class="line">            <span class="comment"># (ngf) x 32 x 32</span></span><br><span class="line">            nn.ConvTranspose2d (ngf, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.Tanh ())</span><br><span class="line">            <span class="comment"># 3 x 64 x 64</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="comment">#前向传播</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        out=self.G_layer(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment">#建立D</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,args)</span>:</span></span><br><span class="line">        super(D,self).__init__()</span><br><span class="line">        ndf = args.ndf  <span class="comment"># ndf 128</span></span><br><span class="line">        self.D_layer= nn.Sequential(</span><br><span class="line">                <span class="comment"># 输入 3 x 64 x 64,</span></span><br><span class="line">                nn.Conv2d(<span class="number">3</span>,ndf,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>),</span><br><span class="line">                nn.BatchNorm2d (ndf),</span><br><span class="line">                nn.LeakyReLU (<span class="literal">True</span>),</span><br><span class="line">                <span class="comment">#输出 (ndf)*32*32</span></span><br><span class="line">                nn.Conv2d(ndf,ndf*<span class="number">2</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>),</span><br><span class="line">                nn.BatchNorm2d (ndf*<span class="number">2</span>),</span><br><span class="line">                nn.LeakyReLU (<span class="literal">True</span>),</span><br><span class="line">                <span class="comment"># 输出 (ndf*2)*16*16</span></span><br><span class="line">                nn.Conv2d (ndf*<span class="number">2</span>, ndf*<span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>),</span><br><span class="line">                nn.BatchNorm2d (ndf*<span class="number">4</span>),</span><br><span class="line">                nn.LeakyReLU (<span class="literal">True</span>),</span><br><span class="line">                <span class="comment"># 输出 (ndf*4)*8*8</span></span><br><span class="line">                nn.Conv2d (ndf*<span class="number">4</span>, ndf*<span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>),</span><br><span class="line">                nn.BatchNorm2d (ndf*<span class="number">8</span>),</span><br><span class="line">                nn.LeakyReLU (<span class="literal">True</span>),</span><br><span class="line">                <span class="comment"># 输出 (ndf*8)*4*4</span></span><br><span class="line">                nn.Conv2d (ndf * <span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">                <span class="comment"># 输出 1*0*0</span></span><br><span class="line">                nn.Sigmoid())<span class="comment">#告诉D概率</span></span><br><span class="line">                </span><br><span class="line">    <span class="comment">#前向传播</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        out=self.D_layer(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure></p>
+<p><strong> train.py </strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision.datasets <span class="keyword">as</span> datasets</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span>  transforms</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">import</span> torch.backends.cudnn <span class="keyword">as</span> cudnn</span><br><span class="line"><span class="comment"># 工具包</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="comment"># 载入网络</span></span><br><span class="line"><span class="keyword">from</span> network <span class="keyword">import</span> G, D</span><br><span class="line"></span><br><span class="line"><span class="comment">#############参数设置#############</span></span><br><span class="line"><span class="comment">####命令行设置########</span></span><br><span class="line">parser = argparse.ArgumentParser (description=<span class="string">'GANs'</span>)  <span class="comment"># 导入命令行模块</span></span><br><span class="line"><span class="comment"># 对关于函数add_argumen()第一个是选项，第二个是数据类型，第三个默认值，第四个是help命令时的说明</span></span><br><span class="line"><span class="comment">#关于训练参数</span></span><br><span class="line">parser.add_argument (<span class="string">'--batch_size'</span>, type=int, default=<span class="number">64</span>,</span><br><span class="line">					 help=<span class="string">'训练batch-size大小 (default: 64)'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--imageSize'</span>, type=int, default=<span class="number">64</span>,</span><br><span class="line">					 help=<span class="string">'图片尺寸'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--max_epoch'</span>, type=int, default=<span class="number">20</span>,</span><br><span class="line">					 help=<span class="string">'最大迭代数 (default: 12)'</span>)</span><br><span class="line"><span class="comment">#关于网络参数</span></span><br><span class="line">parser.add_argument (<span class="string">'--lr_g'</span>, type=float, default=<span class="number">2e-4</span>,</span><br><span class="line">					 help=<span class="string">'生成器学习率 (default: 2e-4)'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--lr_d'</span>, type=float, default=<span class="number">2e-4</span>,</span><br><span class="line">					 help=<span class="string">'判别器学习率 (default: 2e-4)'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--ngf'</span>, type=int, default=<span class="number">128</span>,</span><br><span class="line">					 help=<span class="string">'生成器feature map数'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--ndf'</span>, type=int, default=<span class="number">128</span>,</span><br><span class="line">					 help=<span class="string">'判别器feature map数'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--d_every'</span>, type=int, default=<span class="number">1</span>,</span><br><span class="line">					 help=<span class="string">'每几个batch训练一次判别器'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--g_every'</span>, type=int, default=<span class="number">4</span>,</span><br><span class="line">					 help=<span class="string">'每几个batch训练一次生成器'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--nz'</span>, type=int, default=<span class="number">100</span>,</span><br><span class="line">					 help=<span class="string">'噪声维度'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关于优化器参数</span></span><br><span class="line">parser.add_argument (<span class="string">'--beta1'</span>, type=int, default=<span class="number">0.5</span>,</span><br><span class="line">					 help=<span class="string">'Adam优化器的beta1参数'</span>)</span><br><span class="line"><span class="comment">#路径</span></span><br><span class="line">parser.add_argument (<span class="string">'--dataset'</span>, default=<span class="string">'data/'</span>,</span><br><span class="line">					 help=<span class="string">'数据集路径'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument (<span class="string">'--save_data'</span>,  default=<span class="string">'save/'</span>,</span><br><span class="line">					 help=<span class="string">'保存路径'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#可视化</span></span><br><span class="line">parser.add_argument (<span class="string">'--vis'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">					 help=<span class="string">'使用visdom可视化'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--plot_every'</span>, type=int, default=<span class="number">1</span>,</span><br><span class="line">					 help=<span class="string">'每间隔_batch，visdom画图一次'</span>)</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line"></span><br><span class="line">parser.add_argument (<span class="string">'--cuda'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">					 help=<span class="string">'开启cuda训练'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--plt'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">					 help=<span class="string">'开启画图'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--test'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">					 help=<span class="string">'开启测试生成'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--save_every'</span>, type=int, default=<span class="number">5</span>,</span><br><span class="line">					 help=<span class="string">'几个epoch保存一次模型 (default: 2)'</span>)</span><br><span class="line">parser.add_argument (<span class="string">'--seed'</span>, type=int, default=<span class="number">1</span>,</span><br><span class="line">					 help=<span class="string">'随机种子 (default: 1)'</span>)</span><br><span class="line">args = parser.parse_args ()  <span class="comment"># 相当于激活命令</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#训练过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment">###############判断gpu#############</span></span><br><span class="line">	device = torch.device (<span class="string">'cuda'</span>) <span class="keyword">if</span> args.cuda <span class="keyword">else</span> torch.device (<span class="string">'cpu'</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">####### 为CPU设置种子用于生成随机数，以使得结果是确定的##########</span></span><br><span class="line">	torch.manual_seed (args.seed)</span><br><span class="line">	<span class="keyword">if</span> args.cuda:</span><br><span class="line">		torch.cuda.manual_seed (args.seed)</span><br><span class="line">	cudnn.benchmark = <span class="literal">True</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#################可视化###############</span></span><br><span class="line">	<span class="keyword">if</span> args.vis:</span><br><span class="line">		vis = Visualizer (<span class="string">'GANs'</span>)</span><br><span class="line">	<span class="comment">##########数据转换#####################</span></span><br><span class="line">	data_transforms = transforms.Compose ([transforms.Scale (args.imageSize),  <span class="comment"># 通过调整比例调整大小,会报警</span></span><br><span class="line">										   transforms.CenterCrop (args.imageSize),  <span class="comment"># 在中心裁剪给指定大小方形PIL图像</span></span><br><span class="line">										   transforms.ToTensor (),<span class="comment"># 转换成pytorch 变量tensor</span></span><br><span class="line">										   transforms.Normalize ((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))])</span><br><span class="line">	<span class="comment">###############数据载入################</span></span><br><span class="line">	<span class="comment"># train_dataset = datasets.ImageFolder (root=args.dataset,  # 数据路径目录</span></span><br><span class="line">	<span class="comment"># 									  transform=data_transforms)  # 把数据转换成上面约束样子</span></span><br><span class="line">	</span><br><span class="line">	train_dataset = datasets.CIFAR10(root=args.dataset,</span><br><span class="line">									 train=<span class="literal">True</span>,</span><br><span class="line">									 transform=data_transforms,</span><br><span class="line">									 download=<span class="literal">False</span>)</span><br><span class="line">	<span class="comment"># test_dataset = datasets.ImageFolder (root=args.dataset,</span></span><br><span class="line">	<span class="comment"># 									 transform=data_transforms)</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">##############数据装载###############</span></span><br><span class="line">	train_loader = torch.utils.data.DataLoader (dataset=train_dataset,  <span class="comment"># 装载数据</span></span><br><span class="line">												batch_size=args.batch_size,  <span class="comment"># 设置批大小</span></span><br><span class="line">												shuffle=<span class="literal">True</span>)  <span class="comment"># 是否随机打乱</span></span><br><span class="line">	<span class="comment"># test_loader = torch.utils.data.DataLoader (dataset=test_dataset,</span></span><br><span class="line">	<span class="comment"># 										   batch_size=args.batch_size,</span></span><br><span class="line">	<span class="comment"># 										   shuffle=True)</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#############模型载入#################</span></span><br><span class="line">	netG ,netD= G (args),D (args)</span><br><span class="line">	netG.to (device)</span><br><span class="line">	netD.to (device)</span><br><span class="line">	<span class="keyword">print</span> (netD, netG)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">###############损失函数##################</span></span><br><span class="line">	criterion = torch.nn.BCELoss ().to (device)</span><br><span class="line">	optimizerD = torch.optim.Adam (netD.parameters (), lr=args.lr_d,betas=(<span class="number">0.5</span>, <span class="number">0.999</span>))  <span class="comment"># Adam优化器</span></span><br><span class="line">	optimizerG = torch.optim.Adam (netG.parameters (), lr=args.lr_g,betas=(<span class="number">0.5</span>, <span class="number">0.999</span>))  <span class="comment"># Adam优化器</span></span><br><span class="line">	<span class="comment">###############画图参数保存##################</span></span><br><span class="line">	G_losses = []</span><br><span class="line">	D_losses = []</span><br><span class="line">	img_list = []</span><br><span class="line">	<span class="comment">#############训练过程#####################</span></span><br><span class="line">	<span class="keyword">import</span> tqdm</span><br><span class="line">	<span class="comment"># Tqdm是一个快速，可扩展的Python进度条，可以在Python</span></span><br><span class="line">	<span class="comment"># 长循环中添加一个进度提示信息，用户只需要封装任意的迭代器</span></span><br><span class="line">	<span class="comment"># tqdm (iterator)。</span></span><br><span class="line">	<span class="keyword">for</span> epoch <span class="keyword">in</span> range (args.max_epoch):</span><br><span class="line">		<span class="keyword">for</span> i, (images, labels) <span class="keyword">in</span> tqdm.tqdm(enumerate (train_loader)):  <span class="comment"># 枚举出来</span></span><br><span class="line">			<span class="comment">#数据处理</span></span><br><span class="line">			images = images.to (device)</span><br><span class="line">			<span class="comment"># 装箱</span></span><br><span class="line">			images = Variable (images)</span><br><span class="line">			noises=Variable(torch.randn(images.size(<span class="number">0</span>), args.nz, <span class="number">1</span>, <span class="number">1</span>).to(device))</span><br><span class="line">			</span><br><span class="line">			<span class="comment">#遍历每张图片,并且根据指定的训练机制训练</span></span><br><span class="line">			<span class="keyword">if</span> i % args.d_every==<span class="number">0</span>:<span class="comment">#满足此条件训练D</span></span><br><span class="line">				<span class="comment">#D前向传播</span></span><br><span class="line">				optimizerD.zero_grad ()</span><br><span class="line">				<span class="comment">#D网络输出</span></span><br><span class="line">				output_r = netD (images).view(<span class="number">-1</span>)</span><br><span class="line">				<span class="comment">#定义真张量</span></span><br><span class="line">				<span class="comment">#返回第一个参数为大小 第二参数为值 的张量</span></span><br><span class="line">				true_label = torch.full ((images.size(<span class="number">0</span>),), <span class="number">1</span>, device=device)</span><br><span class="line">				<span class="comment">#判别真的损失</span></span><br><span class="line">				d_real_loss = criterion(output_r, true_label)</span><br><span class="line">				<span class="comment">#反向传播</span></span><br><span class="line">				d_real_loss.backward()</span><br><span class="line">				<span class="comment">#G网络输出</span></span><br><span class="line">				noises.data.copy_ (torch.randn (images.size(<span class="number">0</span>), args.nz, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">				fake = netG (noises).detach ()  <span class="comment"># 根据噪声生成假图</span></span><br><span class="line">				<span class="comment">#把假图给d</span></span><br><span class="line">				output_f = netD (fake).view(<span class="number">-1</span>)</span><br><span class="line">				<span class="comment">#d假的损失</span></span><br><span class="line">				<span class="comment">#print(fake.size(),output_f.size(),output_r.size())</span></span><br><span class="line">				<span class="comment"># 返回第一个参数为大小 第二参数为值 的张量</span></span><br><span class="line">				fake_label = torch.full ((images.size (<span class="number">0</span>),), <span class="number">0</span>, device=device)</span><br><span class="line">				d_fake_loss= criterion(output_f,fake_label)</span><br><span class="line">				<span class="comment">#D假反向传播</span></span><br><span class="line">				d_fake_loss.backward ()</span><br><span class="line">				<span class="comment"># 总损失</span></span><br><span class="line">				D_loss=d_fake_loss+d_real_loss</span><br><span class="line">				<span class="comment">#D更新参数</span></span><br><span class="line">				optimizerD.step ()</span><br><span class="line">				</span><br><span class="line">				</span><br><span class="line">				<span class="comment"># 度量</span></span><br><span class="line">				D_x = output_r.mean ().item ()</span><br><span class="line">				D_G_z1 = output_f.mean ().item ()</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> i % args.g_every==<span class="number">0</span>:<span class="comment">#满足此条件训练G</span></span><br><span class="line">				<span class="comment">#G前向传播</span></span><br><span class="line">				optimizerG.zero_grad ()</span><br><span class="line">				<span class="comment">#G网络输出</span></span><br><span class="line">				fake = netG (noises)  <span class="comment"># 根据噪声生成假图</span></span><br><span class="line">				<span class="comment">#把假图给G</span></span><br><span class="line">				output_f = netD (fake).view(<span class="number">-1</span>)</span><br><span class="line">				<span class="comment">#G的损失</span></span><br><span class="line">				true_label = torch.full ((images.size (<span class="number">0</span>),), <span class="number">1</span>, device=device)</span><br><span class="line">				G_loss = criterion(output_f,true_label)</span><br><span class="line">				<span class="comment">#G反向传播</span></span><br><span class="line">				G_loss.backward ()</span><br><span class="line">				<span class="comment">#度量</span></span><br><span class="line">				D_G_z2 = output_f.mean ().item ()</span><br><span class="line">				<span class="comment">#D更新参数</span></span><br><span class="line">				optimizerG.step ()</span><br><span class="line">				</span><br><span class="line">			<span class="comment">###########################################</span></span><br><span class="line">			<span class="comment">##########可视化(可选)#####################</span></span><br><span class="line">			<span class="keyword">if</span> args.vis <span class="keyword">and</span> i % args.plot_every == args.plot_every - <span class="number">1</span>:</span><br><span class="line">				fake = netG (noises)</span><br><span class="line">				vis.images (fake.detach ().cpu ().numpy () [:<span class="number">64</span>] * <span class="number">0.5</span> + <span class="number">0.5</span>, win=<span class="string">'fixfake'</span>)</span><br><span class="line">				vis.images (images.data.cpu ().numpy () [:<span class="number">64</span>] * <span class="number">0.5</span> + <span class="number">0.5</span>, win=<span class="string">'real'</span>)</span><br><span class="line">				vis.plot (<span class="string">'errord'</span>, D_loss.item ())</span><br><span class="line">				vis.plot (<span class="string">'errorg'</span>, G_loss.item ())</span><br><span class="line">			<span class="comment">#######################################</span></span><br><span class="line">			<span class="comment">############打印记录###################</span></span><br><span class="line">			<span class="keyword">if</span> i % <span class="number">1</span>== <span class="number">0</span>:</span><br><span class="line">				<span class="keyword">print</span> (<span class="string">'[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f'</span></span><br><span class="line">					   % (epoch, args.max_epoch, i, len (train_loader),</span><br><span class="line">						  D_loss.item (), G_loss.item (), D_x, D_G_z1, D_G_z2))</span><br><span class="line">				<span class="comment">########添加画图参数########</span></span><br><span class="line">				G_losses.append (G_loss.item ())</span><br><span class="line">				D_losses.append (D_loss.item ())</span><br><span class="line">				<span class="keyword">with</span> torch.no_grad ():</span><br><span class="line">					noises = torch.randn (args.batch_size, args.nz, <span class="number">1</span>, <span class="number">1</span>).to (device)</span><br><span class="line">					fake = netG (noises).detach ().cpu ()</span><br><span class="line">				<span class="keyword">import</span> torchvision.utils <span class="keyword">as</span> vutils</span><br><span class="line">				img_list.append (vutils.make_grid (fake, padding=<span class="number">2</span>, normalize=<span class="literal">True</span>))</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="comment">#######################################</span></span><br><span class="line">		<span class="comment">############保存模型###################</span></span><br><span class="line">	</span><br><span class="line">		<span class="keyword">if</span> (epoch + <span class="number">1</span>) % args.save_every == <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line">			<span class="comment"># 保存模型、图片</span></span><br><span class="line">			tv.utils.save_image (fake.data [:<span class="number">64</span>], <span class="string">'%s/%s.png'</span> % (args.save_data, epoch), normalize=<span class="literal">True</span>,range=(<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">			torch.save (netD.state_dict (), <span class="string">'checkpoints/netd_%s.pth'</span> % epoch)</span><br><span class="line">			torch.save (netG.state_dict (), <span class="string">'checkpoints/netg_%s.pth'</span> % epoch)</span><br><span class="line">			print(<span class="string">'完成%s的模型保存'</span>%epoch)</span><br><span class="line"></span><br><span class="line">	<span class="comment">#######################################</span></span><br><span class="line">	<span class="comment">############画图###################</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> args.plt:</span><br><span class="line">		<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">		<span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">		<span class="keyword">import</span> torchvision.utils <span class="keyword">as</span> vutils</span><br><span class="line">		</span><br><span class="line">		plt.figure (figsize=(<span class="number">10</span>, <span class="number">5</span>))</span><br><span class="line">		plt.title (<span class="string">"GAN"</span>)</span><br><span class="line">		plt.plot (G_losses, label=<span class="string">"G"</span>)</span><br><span class="line">		plt.plot (D_losses, label=<span class="string">"D"</span>)</span><br><span class="line">		plt.xlabel (<span class="string">"迭代次数"</span>,fontproperties=<span class="string">'SimHei'</span>)</span><br><span class="line">		plt.ylabel (<span class="string">"损失"</span>,fontproperties=<span class="string">'SimHei'</span>)</span><br><span class="line">		plt.legend ()</span><br><span class="line">		plt.show ()</span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 从数据集加载</span></span><br><span class="line">		real_batch = next (iter (train_dataset))</span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 画出真图</span></span><br><span class="line">		plt.figure (figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line">		plt.subplot (<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">		plt.axis (<span class="string">"off"</span>)</span><br><span class="line">		plt.title (<span class="string">"真图"</span>,fontproperties=<span class="string">'SimHei'</span>)</span><br><span class="line">		plt.imshow (np.transpose (</span><br><span class="line">			vutils.make_grid (real_batch [<span class="number">0</span>].to (device) [:<span class="number">64</span>], padding=<span class="number">5</span>, normalize=<span class="literal">True</span>).cpu (),</span><br><span class="line">			(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 画出假图</span></span><br><span class="line">		plt.subplot (<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">		plt.axis (<span class="string">"off"</span>)</span><br><span class="line">		plt.title (<span class="string">"假图"</span>,fontproperties=<span class="string">'SimHei'</span>)</span><br><span class="line">		plt.imshow (np.transpose (img_list [<span class="number">-1</span>], (<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">		plt.show ()</span><br><span class="line">				</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"><span class="meta">@torch.no_grad()#禁用梯度计算</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment">#判断Gpu</span></span><br><span class="line">	device = torch.device (<span class="string">'cuda'</span>) <span class="keyword">if</span> args.cuda <span class="keyword">else</span> torch.device (<span class="string">'cpu'</span>)</span><br><span class="line">	<span class="comment">#初始化网络</span></span><br><span class="line">	netg, netd = netG (args).eval (), netD (args).eval ()</span><br><span class="line">	<span class="comment">#定义噪声</span></span><br><span class="line">	noises = torch.randn (args.batch_size, args.nz, <span class="number">1</span>, <span class="number">1</span>).to (device)</span><br><span class="line">	<span class="comment">#载入网络</span></span><br><span class="line">	netd.load_state_dict (torch.load (<span class="string">'checkpoints/netd_%s.pth'</span>%args.max_epoch))</span><br><span class="line">	netg.load_state_dict (torch.load (<span class="string">'checkpoints/netg_%s.pth'</span>%args.max_epoch))</span><br><span class="line">	<span class="comment">#设备化</span></span><br><span class="line">	netd.to (device)</span><br><span class="line">	netg.to (device)</span><br><span class="line">	<span class="comment"># 生成图片，并计算图片在判别器的分数</span></span><br><span class="line">	fake_img = netg (noises)</span><br><span class="line">	scores = netd (fake_img).detach ()</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 挑选最好的某几张</span></span><br><span class="line">	indexs = scores.topk (<span class="number">5</span>) [<span class="number">1</span>]</span><br><span class="line">	result = []</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> indexs:</span><br><span class="line">		result.append (fake_img.data [i])</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 保存图片</span></span><br><span class="line">	<span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line">	tv.utils.save_image (torch.stack (result), <span class="number">5</span>, normalize=<span class="literal">True</span>, range=(<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="comment">###################可视化类##################################</span></span><br><span class="line"><span class="keyword">import</span> visdom</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Visualizer</span> <span class="params">()</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	封装了visdom的基本操作，但是你仍然可以通过`self.vis.function`</span></span><br><span class="line"><span class="string">	调用原生的visdom接口</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span> <span class="params">(self, env=<span class="string">'default'</span>, **kwargs)</span>:</span></span><br><span class="line">		<span class="keyword">import</span> visdom</span><br><span class="line">		self.vis = visdom.Visdom (env=env, use_incoming_socket=<span class="literal">False</span>, **kwargs)</span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 画的第几个数，相当于横座标</span></span><br><span class="line">		<span class="comment"># 保存（’loss',23） 即loss的第23个点</span></span><br><span class="line">		self.index = &#123;&#125;</span><br><span class="line">		self.log_text = <span class="string">''</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">reinit</span> <span class="params">(self, env=<span class="string">'default'</span>, **kwargs)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		修改visdom的配置</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		self.vis = visdom.Visdom (env=env, use_incoming_socket=<span class="literal">False</span>, **kwargs)</span><br><span class="line">		<span class="keyword">return</span> self</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">plot_many</span> <span class="params">(self, d)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		一次plot多个</span></span><br><span class="line"><span class="string">		@params d: dict (name,value) i.e. ('loss',0.11)</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		<span class="keyword">for</span> k, v <span class="keyword">in</span> d.items ():</span><br><span class="line">			self.plot (k, v)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">img_many</span> <span class="params">(self, d)</span>:</span></span><br><span class="line">		<span class="keyword">for</span> k, v <span class="keyword">in</span> d.items ():</span><br><span class="line">			self.img (k, v)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">plot</span> <span class="params">(self, name, y)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		self.plot('loss',1.00)</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		x = self.index.get (name, <span class="number">0</span>)</span><br><span class="line">		self.vis.line (Y=np.array ([y]), X=np.array ([x]),</span><br><span class="line">					   win=(name),</span><br><span class="line">					   opts=dict (title=name),</span><br><span class="line">					   update=<span class="literal">None</span> <span class="keyword">if</span> x == <span class="number">0</span> <span class="keyword">else</span> <span class="string">'append'</span></span><br><span class="line">					   )</span><br><span class="line">		self.index [name] = x + <span class="number">1</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">img</span> <span class="params">(self, name, img_)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		self.img('input_img',t.Tensor(64,64))</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> len (img_.size ()) &lt; <span class="number">3</span>:</span><br><span class="line">			img_ = img_.cpu ().unsqueeze (<span class="number">0</span>)</span><br><span class="line">		self.vis.image (img_.cpu (),</span><br><span class="line">						win=(name),</span><br><span class="line">						opts=dict (title=name)</span><br><span class="line">						)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">img_grid_many</span> <span class="params">(self, d)</span>:</span></span><br><span class="line">		<span class="keyword">for</span> k, v <span class="keyword">in</span> d.items ():</span><br><span class="line">			self.img_grid (k, v)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">img_grid</span> <span class="params">(self, name, input_3d)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		一个batch的图片转成一个网格图，i.e. input（36，64，64）</span></span><br><span class="line"><span class="string">		会变成 6*6 的网格图，每个格子大小64*64</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		self.img (name, tv.utils.make_grid (</span><br><span class="line">			input_3d.cpu () [<span class="number">0</span>].unsqueeze (<span class="number">1</span>).clamp (max=<span class="number">1</span>, min=<span class="number">0</span>)))</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">log</span> <span class="params">(self, info, win=<span class="string">'log_text'</span>)</span>:</span></span><br><span class="line">		<span class="string">"""</span></span><br><span class="line"><span class="string">		self.log(&#123;'loss':1,'lr':0.0001&#125;)</span></span><br><span class="line"><span class="string">		"""</span></span><br><span class="line">		</span><br><span class="line">		self.log_text += (<span class="string">'[&#123;time&#125;] &#123;info&#125; &lt;br&gt;'</span>.format (</span><br><span class="line">			time=time.strftime (<span class="string">'%m%d_%H%M%S'</span>),</span><br><span class="line">			info=info))</span><br><span class="line">		self.vis.text (self.log_text, win=win)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getattr__</span> <span class="params">(self, name)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> getattr (self.vis, name)</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	<span class="keyword">if</span> args.test:</span><br><span class="line">		test()</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		train()</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>注 :数据集用的cifar-10-batches-py</li>
+<li>结果:</li>
+<li>迭代一次<br><img src="http://images.yx1024.top/回顾-DCGAN/0.png" alt></li>
+<li>迭代二次<br><img src="http://images.yx1024.top/回顾-DCGAN/1.png" alt></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gzh.png" alt="sindre wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.png" alt="sindre 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.png" alt="sindre 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DCGAN/" rel="tag"># DCGAN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/24/回顾-VAEGAN/" rel="next" title="回顾-VAEGAN">
+                <i class="fa fa-chevron-left"></i> 回顾-VAEGAN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/24/破解MathType-方法/" rel="prev" title="破解MathType-方法">
+                破解MathType-方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="sindre">
+            
+              <p class="site-author-name" itemprop="name">sindre</p>
+              <p class="site-description motion-element" itemprop="description">沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sindre97" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sindre1997@sina.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DCGAN-简介"><span class="nav-number">1.</span> <span class="nav-text">1. DCGAN 简介:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-网络结构："><span class="nav-number">2.</span> <span class="nav-text">2. 网络结构：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练细节上的改进"><span class="nav-number">2.0.1.</span> <span class="nav-text">训练细节上的改进:</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#3-pytorch-实现"><span class="nav-number">3.</span> <span class="nav-text">3. pytorch 实现:</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sindre</span>
+
+  
+</div>
+
+
+  <div class="powered-by"><a class="theme-link" target="_blank" href="https://sindre97.github.io">落叶无痕</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"><a class="theme-link" target="_blank">Sindre-新</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/12/24/回顾-DCGAN/';
+          this.page.identifier = '2018/12/24/回顾-DCGAN/';
+          this.page.title = '回顾-DCGAN';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":75,"height":150},"mobile":{"show":true},"log":false});</script></body>
+</html>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
