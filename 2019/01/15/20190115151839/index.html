@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="归一化,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+<meta name="description" content="一般常见的数据归一化，是归一化到0~1，或者-1~1的区间，但在一些特殊场合下，我们需要根据实际情况归一化到其他任意区间，方法是：   将数据归一化到[a,b]区间范围的方法： （1）首先找到样本数据Y的最小值Min及最大值Max（2）计算系数为：k=（b-a)/(Max-Min)（3）得到归一化到[a,b]区间的数据：newY=a+k(Y-Min)">
+<meta name="keywords" content="归一化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20190115151839">
+<meta property="og:title" content="将数据归一化到任意区间范围的方法">
 <meta property="og:url" content="http://yoursite.com/2019/01/15/20190115151839/index.html">
 <meta property="og:site_name" content="落叶无痕">
-<meta property="og:description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+<meta property="og:description" content="一般常见的数据归一化，是归一化到0~1，或者-1~1的区间，但在一些特殊场合下，我们需要根据实际情况归一化到其他任意区间，方法是：   将数据归一化到[a,b]区间范围的方法： （1）首先找到样本数据Y的最小值Min及最大值Max（2）计算系数为：k=（b-a)/(Max-Min)（3）得到归一化到[a,b]区间的数据：newY=a+k(Y-Min)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-15T07:18:39.622Z">
+<meta property="og:updated_time" content="2019-05-04T09:27:23.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20190115151839">
-<meta name="twitter:description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+<meta name="twitter:title" content="将数据归一化到任意区间范围的方法">
+<meta name="twitter:description" content="一般常见的数据归一化，是归一化到0~1，或者-1~1的区间，但在一些特殊场合下，我们需要根据实际情况归一化到其他任意区间，方法是：   将数据归一化到[a,b]区间范围的方法： （1）首先找到样本数据Y的最小值Min及最大值Max（2）计算系数为：k=（b-a)/(Max-Min)（3）得到归一化到[a,b]区间的数据：newY=a+k(Y-Min)">
 
 
 
@@ -125,7 +126,7 @@
 
 
 
-  <title>20190115151839 | 落叶无痕</title>
+  <title>将数据归一化到任意区间范围的方法 | 落叶无痕</title>
   
 
 
@@ -317,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">20190115151839</h1>
+          <h1 class="post-title" itemprop="name headline">将数据归一化到任意区间范围的方法</h1>
         
 
         <div class="post-meta">
@@ -339,6 +340,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据处理/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -377,7 +400,13 @@
       
 
       
-        
+        <hr>
+<p><strong><em> 一般常见的数据归一化，是归一化到0~1，或者-1~1的区间，但在一些特殊场合下，我们需要根据实际情况归一化到其他任意区间，方法是： </em></strong></p>
+<hr>
+<pre><code>将数据归一化到[a,b]区间范围的方法：
+</code></pre><p>（1）首先找到样本数据Y的最小值Min及最大值Max<br>（2）计算系数为：k=（b-a)/(Max-Min)<br>（3）得到归一化到[a,b]区间的数据：newY=a+k(Y-Min)</p>
+<hr>
+
       
     </div>
     
@@ -428,6 +457,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/归一化/" rel="tag"># 归一化</a>
+          
+        </div>
       
 
       
@@ -530,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -777,7 +812,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2019/01/15/20190115151839/';
           this.page.identifier = '2019/01/15/20190115151839/';
-          this.page.title = '20190115151839';
+          this.page.title = '将数据归一化到任意区间范围的方法';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
