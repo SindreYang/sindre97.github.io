@@ -87,19 +87,19 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="1.Pix2Pix 简介: 1.这是基于CGAN的pix2pix模型! 2.Pix2Pix与一般GAN不同的地方在于，其实现的目标是图像翻译，A-》B，比如，一张场景可以转换为RGB全彩图，也可以转化成素描，也可以转化为灰度图。 顾名思义，Pix2Pix指的是像素对像素的翻译，图像大小保持不变。G网络的输入是A图像，通过G网络生成的图像叫做FakeB，而真实的图像就是RealB。 论文: http">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/25/回顾-pix2pix/回顾-pix2pix/g.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/25/回顾-pix2pix/回顾-pix2pix/u.png">
+<meta property="og:image" content="http://images.yx1024.top/回顾-pix2pix/g.png">
+<meta property="og:image" content="http://images.yx1024.top/回顾-pix2pix/u.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/d.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/gan.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/cgan.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/l1.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/g_f.png">
 <meta property="og:image" content="http://yoursite.com/images.yx1024.top/回顾-pix2pix/train.png">
-<meta property="og:updated_time" content="2019-01-01T19:02:10.021Z">
+<meta property="og:updated_time" content="2020-03-01T10:53:21.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回顾-pix2pix">
 <meta name="twitter:description" content="1.Pix2Pix 简介: 1.这是基于CGAN的pix2pix模型! 2.Pix2Pix与一般GAN不同的地方在于，其实现的目标是图像翻译，A-》B，比如，一张场景可以转换为RGB全彩图，也可以转化成素描，也可以转化为灰度图。 顾名思义，Pix2Pix指的是像素对像素的翻译，图像大小保持不变。G网络的输入是A图像，通过G网络生成的图像叫做FakeB，而真实的图像就是RealB。 论文: http">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/25/回顾-pix2pix/回顾-pix2pix/g.png">
+<meta name="twitter:image" content="http://images.yx1024.top/回顾-pix2pix/g.png">
 
 
 
@@ -394,14 +394,14 @@
 <li>论文: <a href="https://arxiv.org/abs/1611.07004" target="_blank" rel="noopener">https://arxiv.org/abs/1611.07004</a></li>
 <li>项目：<a href="https://github.com/phillipi/pix2pix" target="_blank" rel="noopener">https://github.com/phillipi/pix2pix</a></li>
 </ul>
-<h1 id="2-Pix2Pix-网络架构"><a href="#2-Pix2Pix-网络架构" class="headerlink" title="2.Pix2Pix 网络架构:"></a>2.Pix2Pix 网络架构:</h1><p><strong> <font color="red"> 生成网络: </font></strong><br>生成器G使用U-net实现:<br><img src="回顾-pix2pix/g.png" alt></p>
+<h1 id="2-Pix2Pix-网络架构"><a href="#2-Pix2Pix-网络架构" class="headerlink" title="2.Pix2Pix 网络架构:"></a>2.Pix2Pix 网络架构:</h1><p><strong> <font color="red"> 生成网络: </font></strong><br>生成器G使用U-net实现:<br><img src="http://images.yx1024.top/回顾-pix2pix/g.png" alt></p>
 <ul>
 <li><ol>
 <li>从图中可以看出u-net采用跳跃式链接的全卷积结构(有点像resnet的跨层链接)</li>
 </ol>
 </li>
 </ul>
-<p>U-net来源于VAE的encoder-decoder:<br>如图;<br><img src="回顾-pix2pix/u.png" alt><br><strong>注:U-Net通过卷积和反卷积实现的U形形状的网络结构；输入和输出都是3个维度</strong></p>
+<p>U-net来源于VAE的encoder-decoder:<br>如图;<br><img src="http://images.yx1024.top/回顾-pix2pix/u.png" alt><br><strong>注:U-Net通过卷积和反卷积实现的U形形状的网络结构；输入和输出都是3个维度</strong></p>
 <p><strong> <font color="red"> 判别网络: </font></strong><br>判别器D使用马尔科夫性的判别器(PatchGAN)(<a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Isola_Image-To-Image_Translation_With_CVPR_2017_paper.pdf" target="_blank" rel="noopener">论文</a>)</p>
 <ul>
 <li>简单来说:PatchGAN可以理解为一种风格/纹理损失网络<br><img src="http:/images.yx1024.top/回顾-pix2pix/d.png" alt><br><strong> 注:根据kernelsize是1的进行将为，最终实现1个chanel的图像</strong></li>
@@ -593,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -604,7 +604,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -615,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
