@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过设置（system settings）–&amp;gt;network–&amp;gt;ipv4是查看dhcp分配ip为192.108.1.105；jetson nano已经默认开启了openssh-server服务。可以通过xshell直接连上，用教程一中设置的jetson登录；  可见Ubuntu版本是18.04.2为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jetson nano 配置">
+<meta property="og:url" content="http://yoursite.com/2019/06/10/Nvidia-Jetson-nano-配置/index.html">
+<meta property="og:site_name" content="落叶无痕">
+<meta property="og:description" content="通过设置（system settings）–&amp;gt;network–&amp;gt;ipv4是查看dhcp分配ip为192.108.1.105；jetson nano已经默认开启了openssh-server服务。可以通过xshell直接连上，用教程一中设置的jetson登录；  可见Ubuntu版本是18.04.2为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；12345678">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/n1/n21.webp">
+<meta property="og:updated_time" content="2020-03-01T10:42:42.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jetson nano 配置">
+<meta name="twitter:description" content="通过设置（system settings）–&amp;gt;network–&amp;gt;ipv4是查看dhcp分配ip为192.108.1.105；jetson nano已经默认开启了openssh-server服务。可以通过xshell直接连上，用教程一中设置的jetson登录；  可见Ubuntu版本是18.04.2为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；12345678">
+<meta name="twitter:image" content="http://yoursite.com/n1/n21.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/10/Nvidia-Jetson-nano-配置/">
+
+
+
+
+
+  <title>Jetson nano 配置 | 落叶无痕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/sindre97" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶无痕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/Nvidia-Jetson-nano-配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sindre">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶无痕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jetson nano 配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T10:52:43+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/10/Nvidia-Jetson-nano-配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/10/Nvidia-Jetson-nano-配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>通过设置（system settings）–&gt;network–&gt;ipv4是查看dhcp分配ip为192.108.1.105；<br>jetson nano已经默认开启了openssh-server服务。<br>可以通过xshell直接连上，用教程一中设置的jetson登录；</p>
+<p><img src="/n1/n21.webp" alt></p>
+<p>可见Ubuntu版本是18.04.2<br>为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jetson@jetson-desktop:~$ sudo passwd</span><br><span class="line">[sudo] password for jetson: </span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line">jetson@jetson-desktop:~$ su</span><br><span class="line">Password: </span><br><span class="line">root@jetson-desktop:/home/jetson# </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">设置允许超级管理员远程访问</span><br><span class="line"># vi /etc/ssh/sshd_config</span><br><span class="line">找到并用#注释掉这行：PermitRootLogin prohibit-password</span><br><span class="line"></span><br><span class="line">新建一行 添加：PermitRootLogin yes</span><br></pre></td></tr></table></figure></p>
+<p>重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># service ssh restart</span><br></pre></td></tr></table></figure></p>
+<p>设置固定ip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/etc/network/interfaces</span><br><span class="line"># interfaces(5) file used by ifup(8) and ifdown(8)</span><br><span class="line"># Include files from /etc/network/interfaces.d:</span><br><span class="line">source-directory /etc/network/interfaces.d</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.1.105</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 192.168.1.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/etc/systemd/resolved.conf</span><br><span class="line">[Resolve]</span><br><span class="line">DNS==8.8.8.8 223.5.5.5</span><br><span class="line">#FallbackDNS=8.8.8.8</span><br><span class="line">#Domains=</span><br><span class="line">#LLMNR=no</span><br><span class="line">#MulticastDNS=no</span><br><span class="line">#DNSSEC=no</span><br><span class="line">#Cache=yes</span><br><span class="line">#DNSStubListener=yes</span><br></pre></td></tr></table></figure></p>
+<p>重启再连接；联网正常；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (183.232.231.174) 56(84) bytes of data.</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=1 ttl=57 time=5.70 ms</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=2 ttl=57 time=5.61 ms</span><br><span class="line">^C</span><br><span class="line">--- www.a.shifen.com ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 1002ms</span><br><span class="line">rtt min/avg/max/mdev = 5.617/5.661/5.706/0.087 ms</span><br></pre></td></tr></table></figure></p>
+<p>2、默认组件<br>Jetson nano的镜像已经自带了JetPack，cuda，cudnn，opencv组件和sample，这些例子安装路径如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TensorRT    /usr/src/tensorrt/samples/</span><br><span class="line">CUDA    /usr/local/cuda-/samples/</span><br><span class="line">cuDNN   /usr/src/cudnn_samples_v7/</span><br><span class="line">Multimedia API  /usr/src/tegra_multimedia_api/</span><br><span class="line">VisionWorks /usr/share/visionworks/sources/samples/ /usr/share/visionworks-tracking/sources/samples/ /usr/share/visionworks-sfm/sources/samples/</span><br><span class="line">OpenCV  /usr/share/OpenCV/samples/</span><br></pre></td></tr></table></figure></p>
+<p>2.0获取超级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+<p>2.1核对CUDA<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# nvcc -V</span><br><span class="line">-bash: nvcc: command not found</span><br></pre></td></tr></table></figure></p>
+<p>加入路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit  ~/.bashrc</span><br></pre></td></tr></table></figure></p>
+<p>文件最后加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export CUBA_HOME=/usr/local/cuda-10.0</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export PATH=/usr/local/cuda-10.0/bin:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>执行使生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure></p>
+<p>再次执行,显示cuda10.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# source ~/.bashrc</span><br><span class="line">root@jetson-desktop:/# nvcc -V</span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2018 NVIDIA Corporation</span><br><span class="line">Built on Sun_Sep_30_21:09:22_CDT_2018</span><br><span class="line">Cuda compilation tools, release 10.0, V10.0.166</span><br><span class="line">root@jetson-desktop:/#</span><br></pre></td></tr></table></figure></p>
+<p>2.2核对opencv</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# pkg-config opencv --modversion</span><br><span class="line">3.3.1</span><br></pre></td></tr></table></figure>
+<p>显示opencv当前版本是3.3.1<br>2.3核对cuDNN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# cd /usr/src/cudnn_samples_v7/mnistCUDNN/</span><br><span class="line">root@jetson-desktop:/usr/src/cudnn_samples_v7/mnistCUDNN# make</span><br><span class="line">/usr/local/cuda/bin/nvcc -ccbin g++ -I/usr/local/cuda/include -IFreeImage/include  -m64    -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_53,code=sm_53 -gencode arch=compute_53,code=compute_53 -o fp16_dev.o -c fp16_dev.cu</span><br><span class="line">g++ -I/usr/local/cuda/include -IFreeImage/include   -o fp16_emu.o -c fp16_emu.cpp</span><br><span class="line">g++ -I/usr/local/cuda/include -IFreeImage/include   -o mnistCUDNN.o -c mnistCUDNN.cpp</span><br><span class="line">/usr/local/cuda/bin/nvcc -ccbin g++   -m64      -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_53,code=sm_53 -gencode arch=compute_53,code=compute_53 -o mnistCUDNN fp16_dev.o fp16_emu.o mnistCUDNN.o -I/usr/local/cuda/include -IFreeImage/include  -LFreeImage/lib/linux/aarch64 -LFreeImage/lib/linux -lcudart -lcublas -lcudnn -lfreeimage -lstdc++ -lm</span><br><span class="line">FreeImage/lib/linux/aarch64/libfreeimage.a(strenc.o): In function `StrIOEncInit&apos;:</span><br><span class="line">strenc.c:(.text+0x1294): warning: the use of `tmpnam&apos; is dangerous, better use `mkstemp&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行sample</span><br><span class="line">root@jetson-desktop:/usr/src/cudnn_samples_v7/mnistCUDNN# chmod a+x mnistCUDNN</span><br><span class="line">root@jetson-desktop:/usr/src/cudnn_samples_v7/mnistCUDNN# ./mnistCUDNN </span><br><span class="line">cudnnGetVersion() : 7301 , CUDNN_VERSION from cudnn.h : 7301 (7.3.1)</span><br><span class="line">Host compiler version : GCC 7.3.0</span><br><span class="line">There are 1 CUDA capable devices on your machine :</span><br><span class="line">device 0 : sms  1  Capabilities 5.3, SmClock 921.6 Mhz, MemSize (Mb) 3964, MemClock 12.8 Mhz, Ecc=0, boardGroupID=0</span><br><span class="line">Using device 0</span><br><span class="line"></span><br><span class="line">Testing single precision</span><br><span class="line">Loading image data/one_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Testing cudnnGetConvolutionForwardAlgorithm ...</span><br><span class="line">Fastest algorithm is Algo 1</span><br><span class="line">Testing cudnnFindConvolutionForwardAlgorithm ...</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 1: 0.341979 time requiring 3464 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 0: 0.395625 time requiring 0 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 4: 5.210573 time requiring 207360 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 7: 5.213230 time requiring 2057744 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 2: 14.978802 time requiring 57600 memory</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000000 0.9999399 0.0000000 0.0000000 0.0000561 0.0000000 0.0000012 0.0000017 0.0000010 0.0000000 </span><br><span class="line">Loading image data/three_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000000 0.0000000 0.0000000 0.9999288 0.0000000 0.0000711 0.0000000 0.0000000 0.0000000 0.0000000 </span><br><span class="line">Loading image data/five_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000000 0.0000008 0.0000000 0.0000002 0.0000000 0.9999820 0.0000154 0.0000000 0.0000012 0.0000006 </span><br><span class="line"></span><br><span class="line">Result of classification: 1 3 5</span><br><span class="line"></span><br><span class="line">Test passed!</span><br><span class="line"></span><br><span class="line">Testing half precision (math in single precision)</span><br><span class="line">Loading image data/one_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Testing cudnnGetConvolutionForwardAlgorithm ...</span><br><span class="line">Fastest algorithm is Algo 1</span><br><span class="line">Testing cudnnFindConvolutionForwardAlgorithm ...</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 0: 0.135000 time requiring 0 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 1: 0.170885 time requiring 3464 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 2: 0.282708 time requiring 28800 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 4: 1.206094 time requiring 207360 memory</span><br><span class="line">^^^^ CUDNN_STATUS_SUCCESS for Algo 5: 5.214895 time requiring 203008 memory</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000001 1.0000000 0.0000001 0.0000000 0.0000563 0.0000001 0.0000012 0.0000017 0.0000010 0.0000001 </span><br><span class="line">Loading image data/three_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000714 0.0000000 0.0000000 0.0000000 0.0000000 </span><br><span class="line">Loading image data/five_28x28.pgm</span><br><span class="line">Performing forward propagation ...</span><br><span class="line">Resulting weights from Softmax:</span><br><span class="line">0.0000000 0.0000008 0.0000000 0.0000002 0.0000000 1.0000000 0.0000154 0.0000000 0.0000012 0.0000006 </span><br><span class="line"></span><br><span class="line">Result of classification: 1 3 5</span><br><span class="line"></span><br><span class="line">Test passed!</span><br></pre></td></tr></table></figure></p>
+<p>测试通过；<br>2.4核对python<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# python3</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17)</span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br></pre></td></tr></table></figure></p>
+<p>默认已经安装python2.7 和python3.6.7版本<br>3、增加python相关内容<br>3.1安装pip3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# apt-get install python3-pip</span><br><span class="line">正在读取软件包列表... 完成</span><br><span class="line">正在分析软件包的依赖关系树       </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">root@jetson-desktop:/# pip3 -V</span><br><span class="line">pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)</span><br><span class="line"></span><br><span class="line">升级下版本到19.1;</span><br><span class="line">root@jetson-desktop:~# python3 -m pip install --upgrade pip</span><br><span class="line">Collecting pip</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/f9/fb/863012b13912709c13cf5cfdbfb304fa6c727659d6290438e1a88df9d848/pip-19.1-py2.py3-none-any.whl (1.4MB)</span><br><span class="line">    100% |████████████████████████████████| 1.4MB 279kB/s </span><br><span class="line">Installing collected packages: pip</span><br><span class="line">  Found existing installation: pip 9.0.1</span><br><span class="line">    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr</span><br><span class="line">Successfully installed pip-19.1</span><br><span class="line"></span><br><span class="line">root@jetson-desktop:~# pip3 -V</span><br><span class="line">pip 19.1 from /usr/local/lib/python3.6/dist-packages/pip (python 3.6)</span><br></pre></td></tr></table></figure></p>
+<p>3.2安装python-OpenCV<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:/# sudo apt-get install python3-opencv</span><br><span class="line">正在读取软件包列表... 完成</span><br><span class="line">正在分析软件包的依赖关系树       </span><br><span class="line">正在读取状态信息... 完成       </span><br><span class="line">下列软件包是自动安装的并且现在不需要了：</span><br><span class="line">  apt-clone archdetect-deb busybox-static cryptsetup-bin dpkg-repack gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 grub-common kde-window-manager kinit kio kpackagetool5 kwayland-data kwin-common kwin-data kwin-x11 libdebian-installer4</span><br><span class="line">  libkdecorations2-5v5 libkdecorations2private5v5 libkf5activities5 libkf5attica5 libkf5completion-data libkf5completion5 libkf5declarative-data libkf5declarative5 libkf5doctools5 libkf5globalaccel-data libkf5globalaccel5</span><br><span class="line">  libkf5globalaccelprivate5 libkf5idletime5 libkf5jobwidgets-data libkf5jobwidgets5 libkf5kcmutils-data libkf5kcmutils5 libkf5kiocore5 libkf5kiontlm5 libkf5kiowidgets5 libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5</span><br><span class="line">  libkf5package-data libkf5package5 libkf5plasma5 libkf5quickaddons5 libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5textwidgets-data libkf5textwidgets5 libkf5waylandclient5 libkf5waylandserver5</span><br><span class="line">  libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkscreenlocker5 libkwin4-effect-builtins1 libkwineffects11 libkwinglutils11 libkwinxrenderutils11 libqgsttools-p1 libqt5designer5 libqt5help5 libqt5multimedia5 libqt5multimedia5-plugins</span><br><span class="line">  libqt5multimediaquick-p5 libqt5multimediawidgets5 libqt5opengl5 libqt5positioning5 libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5quickwidgets5 libqt5sensors5 libqt5sql5 libqt5test5 libqt5webchannel5 libqt5webkit5 libxcb-composite0</span><br><span class="line">  libxcb-cursor0 libxcb-damage0 os-prober python3-dbus.mainloop.pyqt5 python3-icu python3-pam python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-sip qml-module-org-kde-kquickcontrolsaddons qml-module-qtmultimedia</span><br><span class="line">  qml-module-qtquick2 rdate</span><br><span class="line">使用&apos;sudo apt autoremove&apos;来卸载它(它们)。</span><br><span class="line">将会同时安装下列软件：</span><br><span class="line">  gdal-data libaec0 libarmadillo8 libarpack2 libcharls1 libdap25 libdapclient6v5 libepsilon1 libfreexl1 libfyba0 libgdal20 libgdcm2.8 libgeos-3.6.2 libgeos-c1v5 libgeotiff2 libgif7 libgl2ps1.4 libhdf4-0-alt libhdf5-100 libhdf5-openmpi-100</span><br><span class="line">  libjsoncpp1 libkmlbase1 libkmldom1 libkmlengine1 liblept5 libminizip1 libnetcdf-c++4 libnetcdf13 libodbc1 libogdi3.2 libopencv-calib3d3.2 libopencv-contrib3.2 libopencv-core3.2 libopencv-features2d3.2 libopencv-flann3.2</span><br><span class="line">  libopencv-highgui3.2 libopencv-imgcodecs3.2 libopencv-imgproc3.2 libopencv-ml3.2 libopencv-objdetect3.2 libopencv-photo3.2 libopencv-shape3.2 libopencv-stitching3.2 libopencv-superres3.2 libopencv-video3.2 libopencv-videoio3.2</span><br><span class="line">  libopencv-videostab3.2 libopencv-viz3.2 libpq5 libproj12 libqhull7 libsocket++1 libspatialite7 libsuperlu5 libsz2 libtcl8.6 libtesseract4 libtk8.6 liburiparser1 libvtk6.3 libxerces-c3.2 odbcinst odbcinst1debian2 proj-bin proj-data</span><br><span class="line">  python3-numpy</span><br><span class="line">建议安装：</span><br><span class="line">  geotiff-bin gdal-bin libgeotiff-epsg libhdf4-doc libhdf4-alt-dev hdf4-tools libmyodbc odbc-postgresql tdsodbc unixodbc-bin ogdi-bin tcl8.6 tk8.6 mpi-default-bin vtk6-doc vtk6-examples gfortran python-numpy-doc python3-nose</span><br><span class="line">  python3-numpy-dbg</span><br><span class="line">下列【新】软件包将被安装：</span><br><span class="line">  gdal-data libaec0 libarmadillo8 libarpack2 libcharls1 libdap25 libdapclient6v5 libepsilon1 libfreexl1 libfyba0 libgdal20 libgdcm2.8 libgeos-3.6.2 libgeos-c1v5 libgeotiff2 libgif7 libgl2ps1.4 libhdf4-0-alt libhdf5-100 libhdf5-openmpi-100</span><br><span class="line">  libjsoncpp1 libkmlbase1 libkmldom1 libkmlengine1 liblept5 libminizip1 libnetcdf-c++4 libnetcdf13 libodbc1 libogdi3.2 libopencv-calib3d3.2 libopencv-contrib3.2 libopencv-core3.2 libopencv-features2d3.2 libopencv-flann3.2</span><br><span class="line">  libopencv-highgui3.2 libopencv-imgcodecs3.2 libopencv-imgproc3.2 libopencv-ml3.2 libopencv-objdetect3.2 libopencv-photo3.2 libopencv-shape3.2 libopencv-stitching3.2 libopencv-superres3.2 libopencv-video3.2 libopencv-videoio3.2</span><br><span class="line">  libopencv-videostab3.2 libopencv-viz3.2 libpq5 libproj12 libqhull7 libsocket++1 libspatialite7 libsuperlu5 libsz2 libtcl8.6 libtesseract4 libtk8.6 liburiparser1 libvtk6.3 libxerces-c3.2 odbcinst odbcinst1debian2 proj-bin proj-data</span><br><span class="line">  python3-numpy python3-opencv</span><br><span class="line">升级了 0 个软件包，新安装了 67 个软件包，要卸载 0 个软件包，有 315 个软件包未被升级。</span><br><span class="line">需要下载 55.8 MB 的归档。</span><br><span class="line">解压缩后会消耗 265 MB 的额外空间。</span><br><span class="line">您希望继续执行吗？ [Y/n] y</span><br></pre></td></tr></table></figure></p>
+<p>测试下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# python3</span><br><span class="line">Python 3.6.7 (default, Oct 22 2018, 11:32:17) </span><br><span class="line">[GCC 8.2.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; print(cv2.__version__)</span><br><span class="line">3.2.0</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>默认3.2版本，和系统本身自带的不统一;<br>python2.7版本自带的opencv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# python</span><br><span class="line">Python 2.7.15rc1 (default, Nov 12 2018, 14:31:15) </span><br><span class="line">[GCC 7.3.0] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt;  print(cv2.__version__)</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1</span><br><span class="line">    print(cv2.__version__)</span><br><span class="line">    ^</span><br><span class="line">IndentationError: unexpected indent</span><br><span class="line">&gt;&gt;&gt; print(cv2.__version__)</span><br><span class="line">3.3.1</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>python3能安装的OpenCV的版本太低;稍后再解决;<br>4，更新系统</p>
+<p>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get upgrade -y</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">效果片段如下：下载内容较多，可能时间会很长。</span><br><span class="line">升级了 305 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 10 个软件包未被升级。</span><br><span class="line">需要下载 396 MB/396 MB 的归档。</span><br><span class="line">解压缩后会消耗 69.5 MB 的额外空间。</span><br><span class="line">命中:13 http://ports.ubuntu.com/ubuntu-ports bionic InRelease                                             </span><br><span class="line">获取:1 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 login arm64 1:4.5-1ubuntu2 [301 kB]</span><br><span class="line">命中:14 http://ports.ubuntu.com/ubuntu-ports bionic-updates InRelease                                     </span><br><span class="line">命中:15 http://ports.ubuntu.com/ubuntu-ports bionic-backports InRelease                                   </span><br><span class="line">命中:16 http://ports.ubuntu.com/ubuntu-ports bionic-security InRelease                                    </span><br><span class="line">正在读取软件包列表... 完成 20%]                                              80.2 kB/s 1小时 22分 13秒    </span><br><span class="line">获取:2 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libgomp1 arm64 8.3.0-6ubuntu1~18.04 [69.6 kB]                                                                                                                             </span><br><span class="line">获取:3 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libitm1 arm64 8.3.0-6ubuntu1~18.04 [24.3 kB]                                                                                                                              </span><br><span class="line">获取:4 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 gcc-8-base arm64 8.3.0-6ubuntu1~18.04 [18.7 kB]                                                                                                                           </span><br><span class="line">获取:5 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libgcc1 arm64 1:8.3.0-6ubuntu1~18.04 [34.4 kB]                                                                                                                            </span><br><span class="line">获取:6 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 liblsan0 arm64 8.3.0-6ubuntu1~18.04 [121 kB]                                                                                                                              </span><br><span class="line">获取:7 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libtsan0 arm64 8.3.0-6ubuntu1~18.04 [269 kB]                                                                                                                              </span><br><span class="line">获取:8 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libcc1-0 arm64 8.3.0-6ubuntu1~18.04 [46.4 kB]                                                                                                                             </span><br><span class="line">获取:9 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libatomic1 arm64 8.3.0-6ubuntu1~18.04 [9,164 B]                                                                                                                           </span><br><span class="line">获取:10 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libstdc++6 arm64 8.3.0-6ubuntu1~18.04 [372 kB]                                                                                                                           </span><br><span class="line">获取:11 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libnss-systemd arm64 237-3ubuntu10.21 [90.1 kB]                                                                                                                          </span><br><span class="line">获取:12 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libudev1 arm64 237-3ubuntu10.21 [45.2 kB]                                                                                                                                </span><br><span class="line">获取:13 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 udev arm64 237-3ubuntu10.21 [1,050 kB]                                                                                                                                   </span><br><span class="line">获取:14 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libnss-myhostname arm64 237-3ubuntu10.21 [30.2 kB]                                                                                                                       </span><br><span class="line">获取:15 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libpam-systemd arm64 237-3ubuntu10.21 [92.8 kB]                                                                                                                          </span><br><span class="line">获取:17 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libsystemd0 arm64 237-3ubuntu10.21 [171 kB]                                                                                                                              </span><br><span class="line">获取:18 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libpam0g arm64 1.1.8-3.6ubuntu2.18.04.1 [51.1 kB]                                                                                                                        </span><br><span class="line">获取:16 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 systemd arm64 237-3ubuntu10.21 [2,551 kB]                                                                                                                                </span><br><span class="line">获取:19 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libpam-modules-bin arm64 1.1.8-3.6ubuntu2.18.04.1 [32.7 kB]</span><br></pre></td></tr></table></figure>
+<p>默认的更新源国内访问实在太慢了。<br>/etc/apt/sources.list文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gudit /etc/apt/sources.list</span><br></pre></td></tr></table></figure></p>
+<p>里面的链接全部替换成清华的源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic main multiverse restricted universe</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-security main multiverse restricted universe</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-updates main multiverse restricted universe</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-backports main multiverse restricted universe</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic main multiverse restricted universe</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-security main multiverse restricted universe</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-updates main multiverse restricted universe</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-backports main multiverse restricted universe</span><br><span class="line"></span><br><span class="line">然后重新执行;</span><br><span class="line">获取:84 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/main arm64 Packages [1,024 B]                                                                                                                                         </span><br><span class="line">获取:85 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/main Translation-en [448 B]                                                                                                                                           </span><br><span class="line">获取:86 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/universe arm64 Packages [3,468 B]                                                                                                                                     </span><br><span class="line">获取:87 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/universe Translation-en [1,604 B]                                                                                                                                     </span><br><span class="line">获取:88 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/universe arm64 DEP-11 Metadata [7,156 B]                                                                                                                              </span><br><span class="line">获取:89 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/universe DEP-11 48x48 Icons [29 B]                                                                                                                                    </span><br><span class="line">获取:90 http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports bionic-backports/universe DEP-11 64x64 Icons [29 B]                                                                                                                                    </span><br><span class="line">已下载 45.5 MB，耗时 16秒 (2,900 kB/s)</span><br></pre></td></tr></table></figure></p>
+<p>速度超快！<br>5，关闭桌面系统<br>先看下内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# free</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:        4059712      572136     2529292       19044      958284     3304544</span><br><span class="line">Swap:             0           0           0</span><br><span class="line">root@jetson-desktop:~#</span><br></pre></td></tr></table></figure></p>
+<p>关闭桌面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# sudo systemctl set-default multi-user.target</span><br><span class="line">Removed /etc/systemd/system/default.target.</span><br><span class="line">Created symlink /etc/systemd/system/default.target → /lib/systemd/system/multi-user.target.</span><br><span class="line">root@jetson-desktop:~# reboot</span><br></pre></td></tr></table></figure></p>
+<p>再看内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# free</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:        4059712      321340     3511972       17616      226400     3573020</span><br><span class="line">Swap:             0           0           0</span><br><span class="line">root@jetson-desktop:~#</span><br></pre></td></tr></table></figure></p>
+<p>参考链接：<a href="https://www.jianshu.com/p/1fac6cdedd0d" target="_blank" rel="noopener">https://www.jianshu.com/p/1fac6cdedd0d</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gzh.png" alt="sindre wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.png" alt="sindre 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.png" alt="sindre 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/10/Nvidia-Jetson-nano-介绍/" rel="next" title="Jetson nano 介绍">
+                <i class="fa fa-chevron-left"></i> Jetson nano 介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="sindre">
+            
+              <p class="site-author-name" itemprop="name">sindre</p>
+              <p class="site-description motion-element" itemprop="description">沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sindre97" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sindre1997@sina.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sindre</span>
+
+  
+</div>
+
+
+  <div class="powered-by"><a class="theme-link" target="_blank" href="https://sindre97.github.io">落叶无痕</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"><a class="theme-link" target="_blank">Sindre-新</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/06/10/Nvidia-Jetson-nano-配置/';
+          this.page.identifier = '2019/06/10/Nvidia-Jetson-nano-配置/';
+          this.page.title = 'Jetson nano 配置';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":75,"height":150},"mobile":{"show":true},"log":false});</script></body>
+</html>
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
