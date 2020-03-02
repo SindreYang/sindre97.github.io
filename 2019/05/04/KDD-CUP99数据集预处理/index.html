@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="kup99,">
+  <meta name="keywords" content="kdd99,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="KDD CUP99数据集预处理    1、数据集下载：http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html 2、KDDCup99网络入侵检测数据集介绍： https://blog.csdn.net/com_stu_zhang/article/details/6987632 https://www.cnblogs.com/go">
-<meta name="keywords" content="kup99">
+<meta name="keywords" content="kdd99">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KDD CUP99数据集预处理">
 <meta property="og:url" content="http://yoursite.com/2019/05/04/KDD-CUP99数据集预处理/index.html">
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="KDD CUP99数据集预处理    1、数据集下载：http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html 2、KDDCup99网络入侵检测数据集介绍： https://blog.csdn.net/com_stu_zhang/article/details/6987632 https://www.cnblogs.com/go">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-04T09:43:51.199Z">
+<meta property="og:updated_time" content="2020-03-02T14:35:44.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KDD CUP99数据集预处理">
 <meta name="twitter:description" content="KDD CUP99数据集预处理    1、数据集下载：http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html 2、KDDCup99网络入侵检测数据集介绍： https://blog.csdn.net/com_stu_zhang/article/details/6987632 https://www.cnblogs.com/go">
@@ -397,6 +397,7 @@
 </code></pre><p>引用：<br><a href="https://blog.csdn.net/asialee_bird/article/details/80491256" target="_blank" rel="noopener">https://blog.csdn.net/asialee_bird/article/details/80491256</a></p>
 <p>6、KDD CUP99数据集按行转换成图片</p>
 <h1 id="将其转换为图片"><a href="#将其转换为图片" class="headerlink" title="将其转换为图片"></a>将其转换为图片</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">data =np.random.random((<span class="number">4</span>,<span class="number">4</span>,<span class="number">3</span>))</span><br><span class="line">data=[]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Toimage</span><span class="params">()</span>:</span></span><br><span class="line">	source_file = <span class="string">'kddcup.data_10_percent_corrected.csv'</span></span><br><span class="line">	<span class="keyword">with</span> open (source_file, <span class="string">'r'</span>) <span class="keyword">as</span> data_source:</span><br><span class="line">		csv_reader = csv.reader (data_source)</span><br><span class="line">		count = <span class="number">0</span>  记录数据的行数，初始化为<span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> row <span class="keyword">in</span> csv_reader:</span><br><span class="line"></span><br><span class="line">			new_row=[float(x) <span class="keyword">for</span> x <span class="keyword">in</span> row]</span><br><span class="line">			image_data=np.array(new_row)</span><br><span class="line"></span><br><span class="line">			data = np.array (image_data).reshape (<span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line">			imageio.imwrite (<span class="string">'image/&#123;&#125;.jpg'</span>.format(count), data)</span><br><span class="line">			count+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#Toimage()</span></span><br><span class="line"><span class="string">#print(np.array(data))</span></span><br><span class="line"><span class="string">#</span></span><br><span class="line"><span class="string"># new_list = [i for i in range(9)]</span></span><br><span class="line"><span class="string"># data=np.array(data).reshape(4,4,3)</span></span><br><span class="line"><span class="string"># print(data)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">from multiprocessing import Process</span></span><br><span class="line"><span class="string">from multiprocessing import Manager</span></span><br><span class="line"><span class="string">import cv2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def Toimage ():</span></span><br><span class="line"><span class="string">	source_file = 'kddcup.data_10_percent_corrected.csv'</span></span><br><span class="line"><span class="string">	with open (source_file, 'r') as data_source:</span></span><br><span class="line"><span class="string">		csv_reader = csv.reader (data_source)</span></span><br><span class="line"><span class="string">		count = 0  # 记录数据的行数，初始化为0</span></span><br><span class="line"><span class="string">		for row in csv_reader:</span></span><br><span class="line"><span class="string">			new_row = [float (x) for x in row]</span></span><br><span class="line"><span class="string">			image_data = np.array (new_row)</span></span><br><span class="line"><span class="string">			data = np.array (image_data).reshape (6, 7)</span></span><br><span class="line"><span class="string">			cv2.imwrite ('image/&#123;&#125;.jpg'.format (count), data)</span></span><br><span class="line"><span class="string">			cv2.waitKey ()</span></span><br><span class="line"><span class="string">			cv2.destroyAllWindows ()</span></span><br><span class="line"><span class="string">			count += 1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">if __name__ == '__main__':  # 进程间默认不能共用内存</span></span><br><span class="line"><span class="string">	manager = Manager ()</span></span><br><span class="line"><span class="string">	dic = manager.dict ()  # 这是一个特殊的字典</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	p = Process (target=Toimage, args=(dic))</span></span><br><span class="line"><span class="string">	p.start ()</span></span><br><span class="line"><span class="string">	p.join ()</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	print ('end')</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -450,7 +451,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/kup99/" rel="tag"># kup99</a>
+            <a href="/tags/kdd99/" rel="tag"># kdd99</a>
           
         </div>
       
@@ -463,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/27/一些系统的工具/" rel="next" title="一些系统的工具">
-                <i class="fa fa-chevron-left"></i> 一些系统的工具
+              <a href="/2019/03/27/一些系统的工具/" rel="next" title="一些系统软件">
+                <i class="fa fa-chevron-left"></i> 一些系统软件
               </a>
             
           </div>
@@ -564,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -575,7 +576,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -586,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
