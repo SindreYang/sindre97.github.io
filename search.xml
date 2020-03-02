@@ -125,7 +125,7 @@
   </entry>
   <entry>
     <title><![CDATA[pytorch expected backend CPU and dtype Double but got backend CPU and dtype Float]]></title>
-    <url>%2F2019%2F01%2F25%2Fpytorch%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E6%97%B6%E6%8A%A5%E9%94%99RuntimeError-expected-backend-CPU-and-dtype-Double-but-got-backend-CPU-and-dtype-Float%2F</url>
+    <url>%2F2019%2F01%2F25%2Fpytorch%20RuntimeError-expected-backend-CPU-and-dtype-Double-but-got-backend-CPU-and-dtype-Float%2F</url>
     <content type="text"><![CDATA[用pytorch搭建网络测试时，代码报错如下：RuntimeError: expected backend CPU and dtype Double but got backend CPU and dtype Float 报错在transform.ToTensor ()： 如图： 报类型错误，默认x类型为float64，加上那句运行正确。 尝试过其他方法： 1：如A fix would be to call .double() on your model (or .float() on the input)https://github.com/pytorch/pytorch/issues/2138 2： from_numpy().float() 3:astype(‘float’) 4:您的输入和目标张量是DoubleTensors，但您的模型参数是FloatTensors。您必须转换输入或参数。 要将输入转换为float（推荐）： inputs, labels = datainputs = inputs.float()labels = labels.float()inputs, labels = Variable(inputs), Variable(labels)要将模型转换为double： model = ColorizerNet()model.double()我建议使用浮动而不是双打。它是PyTorch中的默认张量类型。在GPU上，浮点计算比双重计算快得多。https://discuss.pytorch.org/t/problems-with-weight-array-of-floattensor-type-in-loss-function/381]]></content>
       <tags>
         <tag>爬坑</tag>
@@ -133,7 +133,7 @@
   </entry>
   <entry>
     <title><![CDATA[pytorch expected backend CPU and dtype Double but got backend CPU and dtype Float]]></title>
-    <url>%2F2019%2F01%2F25%2Fpytorch%20RuntimeError-expected-backend-CPU-and-dtype-Double-but-got-backend-CPU-and-dtype-Float%2F</url>
+    <url>%2F2019%2F01%2F25%2Fpytorch%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E6%97%B6%E6%8A%A5%E9%94%99RuntimeError-expected-backend-CPU-and-dtype-Double-but-got-backend-CPU-and-dtype-Float%2F</url>
     <content type="text"><![CDATA[用pytorch搭建网络测试时，代码报错如下：RuntimeError: expected backend CPU and dtype Double but got backend CPU and dtype Float 报错在transform.ToTensor ()： 如图： 报类型错误，默认x类型为float64，加上那句运行正确。 尝试过其他方法： 1：如A fix would be to call .double() on your model (or .float() on the input)https://github.com/pytorch/pytorch/issues/2138 2： from_numpy().float() 3:astype(‘float’) 4:您的输入和目标张量是DoubleTensors，但您的模型参数是FloatTensors。您必须转换输入或参数。 要将输入转换为float（推荐）： inputs, labels = datainputs = inputs.float()labels = labels.float()inputs, labels = Variable(inputs), Variable(labels)要将模型转换为double： model = ColorizerNet()model.double()我建议使用浮动而不是双打。它是PyTorch中的默认张量类型。在GPU上，浮点计算比双重计算快得多。https://discuss.pytorch.org/t/problems-with-weight-array-of-floattensor-type-in-loss-function/381]]></content>
       <tags>
         <tag>爬坑</tag>
