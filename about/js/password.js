@@ -5,7 +5,7 @@ function checkpassword(){
       var pwd="sindre";
       if ( password!=pwd ) {
             alert("密码错误!！如有任何问题,请联系我!");
-            window.location.href="https://blog.yx1024.top/about/";
+            window.location.href="https://blog.yx1024.top/";
 
       }
 
