@@ -253,14 +253,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[The size of tensor a (5) must match the size of tensor b (3) at non-singleton dimension 3]]></title>
-    <url>%2F2018%2F12%2F25%2FThe-size-of-tensor-a-(5)-must-match-the-size-of-tensor-b-(3)-at-non-singleton-dimension-3%2F</url>
-    <content type="text"><![CDATA[打印所有操作的张量形状，然后您将更好地了解Tensor形状如何随每个操作而变化。之后，可以找出要更改的行以使尺寸匹配。 主要在你的输入尺寸 输出尺寸 模型结构方面考虑 用.size（）排错]]></content>
-      <tags>
-        <tag>爬坑</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[回顾-pix2pix]]></title>
     <url>%2F2018%2F12%2F25%2F%E5%9B%9E%E9%A1%BE-pix2pix%2F</url>
     <content type="text"><![CDATA[1.Pix2Pix 简介: 1.这是基于CGAN的pix2pix模型! 2.Pix2Pix与一般GAN不同的地方在于，其实现的目标是图像翻译，A-》B，比如，一张场景可以转换为RGB全彩图，也可以转化成素描，也可以转化为灰度图。 顾名思义，Pix2Pix指的是像素对像素的翻译，图像大小保持不变。G网络的输入是A图像，通过G网络生成的图像叫做FakeB，而真实的图像就是RealB。 论文: https://arxiv.org/abs/1611.07004 项目：https://github.com/phillipi/pix2pix 2.Pix2Pix 网络架构: 生成网络: 生成器G使用U-net实现: 从图中可以看出u-net采用跳跃式链接的全卷积结构(有点像resnet的跨层链接) U-net来源于VAE的encoder-decoder:如图;注:U-Net通过卷积和反卷积实现的U形形状的网络结构；输入和输出都是3个维度 判别网络: 判别器D使用马尔科夫性的判别器(PatchGAN)(论文) 简单来说:PatchGAN可以理解为一种风格/纹理损失网络 注:根据kernelsize是1的进行将为，最终实现1个chanel的图像 损失函数: 原始GAN(G不需要x): CGAN(G需要x): 给GAN加个L1或L2,而Pix2pix使用的是L1架构，可以减少模糊程度: 最终G损失: 注:最终的loss是针对一个chanel的图像的每个像素求MSE(均方差loss，fake的label为0，real的label为1)或BCE(二进制交叉熵)。 训练方法: 训练大致过程如上图所示。图片 x 作为此cGAN的条件，需要输入到G和D中。G的输入是{x,z}（其中，x 是需要转换的图片，z 是随机噪声），输出是生成的图片G(x,z)。D则需要分辨出{x,G(x,z)}和{x,y}。 3.Pix2Pix 创新点: 1.一般的方法都是训练CNN去缩小输入跟输出的欧氏距离,论文在GAN的基础上提出一个通用的方法：pix2pix 来解决这一类问题。通过pix2pix来完成成对的图像转换 2.输入为图像而不是随机向量 3.成对输入为图像而不是随机向量 4.Patch判别器来降低计算量提升效果 5.L1损失函数的加入来保证输入和输出之间的一致性。 4. Pytorch实现:]]></content>
@@ -274,11 +266,11 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[破解MathType-方法]]></title>
-    <url>%2F2018%2F12%2F24%2F%E7%A0%B4%E8%A7%A3MathType-%E6%96%B9%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[流程：1.首先打开运行，快捷键 win+R2.输入regedit。3.打开注册表4.在HKEY_CURRENT_USER项右键 点击查找5.输入Install Options6.删除键值对 快捷方式：新建记事本：输入12345@echo onreg delete &quot;HKEY_CURRENT_USER\Software\Install Options\Options7.2&quot; /fpause 注意： reg delete后面 路径每个电脑不同 保存 新建文档.txt(没有txt，请打开后缀） 重命名 为刷新mathtype.bat 每次到期 运行下就可以了]]></content>
+    <title><![CDATA[The size of tensor a (5) must match the size of tensor b (3) at non-singleton dimension 3]]></title>
+    <url>%2F2018%2F12%2F25%2FThe-size-of-tensor-a-(5)-must-match-the-size-of-tensor-b-(3)-at-non-singleton-dimension-3%2F</url>
+    <content type="text"><![CDATA[打印所有操作的张量形状，然后您将更好地了解Tensor形状如何随每个操作而变化。之后，可以找出要更改的行以使尺寸匹配。 主要在你的输入尺寸 输出尺寸 模型结构方面考虑 用.size（）排错]]></content>
       <tags>
-        <tag>破解MathType</tag>
+        <tag>爬坑</tag>
       </tags>
   </entry>
   <entry>
@@ -305,6 +297,14 @@
       </categories>
       <tags>
         <tag>VAEGAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[破解MathType-方法]]></title>
+    <url>%2F2018%2F12%2F24%2F%E7%A0%B4%E8%A7%A3MathType-%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[流程：1.首先打开运行，快捷键 win+R2.输入regedit。3.打开注册表4.在HKEY_CURRENT_USER项右键 点击查找5.输入Install Options6.删除键值对 快捷方式：新建记事本：输入12345@echo onreg delete &quot;HKEY_CURRENT_USER\Software\Install Options\Options7.2&quot; /fpause 注意： reg delete后面 路径每个电脑不同 保存 新建文档.txt(没有txt，请打开后缀） 重命名 为刷新mathtype.bat 每次到期 运行下就可以了]]></content>
+      <tags>
+        <tag>破解MathType</tag>
       </tags>
   </entry>
   <entry>
