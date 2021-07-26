@@ -87,17 +87,17 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="1.InstaGAN简介：InstaGAN这种 GAN 结合了实例信息（如目标分割掩码），提高了多实例转换的能力。在保持实例置换不变性的同时，该 GAN 对图像和相应的实例属性集进行转换。为此，研究人员引入了一个语境保留损失函数，鼓励网络学习目标实例之外的恒等函数。此外，他们还提出了一种序列 mini-batch 推理/训练技术，这种技术借助有限的 GPU 内存处理多个实例，增强了该网络在多实例任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/network.png">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/g.png">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/d.png">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/loss.png">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/closs.png">
-<meta property="og:image" content="http://images.yx1024.top/instaGAN/inloss.png">
-<meta property="og:updated_time" content="2020-03-02T14:25:50.312Z">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/network.png">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/g.png">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/d.png">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/loss.png">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/closs.png">
+<meta property="og:image" content="https://blog.mviai.com/images/instaGAN/inloss.png">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回顾-instaGAN">
 <meta name="twitter:description" content="1.InstaGAN简介：InstaGAN这种 GAN 结合了实例信息（如目标分割掩码），提高了多实例转换的能力。在保持实例置换不变性的同时，该 GAN 对图像和相应的实例属性集进行转换。为此，研究人员引入了一个语境保留损失函数，鼓励网络学习目标实例之外的恒等函数。此外，他们还提出了一种序列 mini-batch 推理/训练技术，这种技术借助有限的 GPU 内存处理多个实例，增强了该网络在多实例任">
-<meta name="twitter:image" content="http://images.yx1024.top/instaGAN/network.png">
+<meta name="twitter:image" content="https://blog.mviai.com/images/instaGAN/network.png">
 
 
 
@@ -433,18 +433,18 @@
 <hr>
 <p>是Cycle GAN的改进版本。虽然Cycle GAN替换不能改变形状，但它可以改变形状。但老实说，这种印象是准确度和分辨率仍然很低</p>
 <hr>
-<h1 id="2-instaGANGAN网络结构"><a href="#2-instaGANGAN网络结构" class="headerlink" title="2. instaGANGAN网络结构:"></a>2. instaGANGAN网络结构:</h1><p>如图:<br><img src="http://images.yx1024.top/instaGAN/network.png" alt></p>
+<h1 id="2-instaGANGAN网络结构"><a href="#2-instaGANGAN网络结构" class="headerlink" title="2. instaGANGAN网络结构:"></a>2. instaGANGAN网络结构:</h1><p>如图:<br><img src="https://blog.mviai.com/images/instaGAN/network.png" alt></p>
 <ul>
 <li>首先看图（左边）<ul>
 <li>这是全局图，可以看到依然是cycleGAN模式，最大特点就是原图与mask进行合并（cat）输入和输出<br>*（右边）</li>
-<li>大体上我们可以把G看做<img src="http://images.yx1024.top/instaGAN/g.png" alt>，d看做<img src="http://images.yx1024.top/instaGAN/d.png" alt></li>
+<li>大体上我们可以把G看做<img src="https://blog.mviai.com/images/instaGAN/g.png" alt>，d看做<img src="https://blog.mviai.com/images/instaGAN/d.png" alt></li>
 <li>看到原图与mask合并后，还加了一个add模块 ，即为了获得属性，我们对所有集合元素的不变性求和，然后将其与等方差的恒等映射连接起来。</li>
-<li>中间f，表示用通过f函数提取特征。<h1 id="3-instaGAN损失函数"><a href="#3-instaGAN损失函数" class="headerlink" title="3.instaGAN损失函数"></a>3.instaGAN损失函数</h1>其实就是把加一个约束，保证masks之外的信息保持不变（下式中的L_{ctx}项）。整个loss如下：<br><img src="http://images.yx1024.top/instaGAN/loss.png" alt></li>
+<li>中间f，表示用通过f函数提取特征。<h1 id="3-instaGAN损失函数"><a href="#3-instaGAN损失函数" class="headerlink" title="3.instaGAN损失函数"></a>3.instaGAN损失函数</h1>其实就是把加一个约束，保证masks之外的信息保持不变（下式中的L_{ctx}项）。整个loss如下：<br><img src="https://blog.mviai.com/images/instaGAN/loss.png" alt></li>
 </ul>
 </li>
 </ul>
-<p>对比下cycleGAN的损失函数<br><img src="http://images.yx1024.top/instaGAN/closs.png" alt></p>
-<p>然后在分开看下instaGAN的loss：<br><img src="http://images.yx1024.top/instaGAN/inloss.png" alt></p>
+<p>对比下cycleGAN的损失函数<br><img src="https://blog.mviai.com/images/instaGAN/closs.png" alt></p>
+<p>然后在分开看下instaGAN的loss：<br><img src="https://blog.mviai.com/images/instaGAN/inloss.png" alt></p>
 <ul>
 <li>解释下：<ul>
 <li>LSGAN损失函数时最基本的GAN网络损失函数</li>
@@ -716,7 +716,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

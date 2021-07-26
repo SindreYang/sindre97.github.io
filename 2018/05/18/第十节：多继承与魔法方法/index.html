@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="一：多继承：class A(): def __init__(self): print(“A”) class B(A): def __init__(self): super().__init__() print(“B”) class C(A): def __init__(self): super().__init__() print(“C”) class D(B, C): def __init__(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/OMR.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/1.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/2.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/3.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/4.png">
-<meta property="og:updated_time" content="2020-03-02T14:43:06.612Z">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/OMR.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/1.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/2.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/3.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/4.png">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第十节:多继承与魔法方法">
 <meta name="twitter:description" content="一：多继承：class A(): def __init__(self): print(“A”) class B(A): def __init__(self): super().__init__() print(“B”) class C(A): def __init__(self): super().__init__() print(“C”) class D(B, C): def __init__(">
-<meta name="twitter:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/OMR.png">
+<meta name="twitter:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/OMR.png">
 
 
 
@@ -417,8 +417,8 @@
       
 
       
-        <h2 id="一：多继承："><a href="#一：多继承：" class="headerlink" title="一：多继承："></a>一：多继承：</h2><p>class A(): def __init__(self): print(“A”) class B(A): def __init__(self): super().__init__() print(“B”) class C(A): def __init__(self): super().__init__() print(“C”) class D(B, C): def __init__(self): super().__init__() print(“D”) D()   <img src="http://www.yx1024.top/wp-content/uploads/2018/05/OMR.png" alt> python 支持多继承，但对与经典类和新式类来说，多继承查找的顺序是不一样的。 经典类的搜索方式是按照“<strong>从左至右，深度优先</strong>”的方式去查找属性。 新式类的搜索方式是采用“<strong>广度优先</strong>”的方式去查找属性。    </p>
-<h2 id="二：魔法方法："><a href="#二：魔法方法：" class="headerlink" title="二：魔法方法："></a>二：魔法方法：</h2><p><strong>1、何为魔法方法：</strong> 　　Python中，一定要区分开函数和方法的含义； 1.函数：类外部定义的，跟类没有直接关系的；形式： def func(<em>argv): 　　2.方法：class内部定义的函数（对象的方法也可以认为是属性）；分为两种： 　　　　① python自动产生的（魔法方法）：一般形式为 __func__()，python会在对应的时机自动调用该函数； 　　　　② 人为自定义的方法：一般和普通函数没有区别，只是定义在了class中而已 　　3.方法与函数的区别： 　　　　方法可认为是函数的特殊情况； 　　　　① 方法定义在class内部 　　　　② 方法的第一个参数应为 cls(类方法) 或者 self(实例方法)     <strong>2、魔法方法汇总：</strong> <img src="http://www.yx1024.top/wp-content/uploads/2018/05/1.png" alt><img src="http://www.yx1024.top/wp-content/uploads/2018/05/2.png" alt><img src="http://www.yx1024.top/wp-content/uploads/2018/05/3.png" alt><img src="http://www.yx1024.top/wp-content/uploads/2018/05/4.png" alt> ①.以上所有的魔法方法，君采用__xx__形式（__为双 “_”，双下划线） ②.以上魔法方法为Python解释器自动调用，当然也可以手动调用 ③.魔法方法Python解释器自动给出默认的，因此除非需要改变其内部功能，其它时刻刻使用默认魔法方法 ④.魔法方法是针对class而言的，脱离了”类“谈magic_method是没有意义的 ⑤.</em>argv为可变的参数列表，类似C语言的va(variable argument),注意与指针的区别，python中暂时忘掉指针，因为python的内存机制都是解释器自动完成的</p>
+        <h2 id="一：多继承："><a href="#一：多继承：" class="headerlink" title="一：多继承："></a>一：多继承：</h2><p>class A(): def __init__(self): print(“A”) class B(A): def __init__(self): super().__init__() print(“B”) class C(A): def __init__(self): super().__init__() print(“C”) class D(B, C): def __init__(self): super().__init__() print(“D”) D()   <img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/OMR.png" alt> python 支持多继承，但对与经典类和新式类来说，多继承查找的顺序是不一样的。 经典类的搜索方式是按照“<strong>从左至右，深度优先</strong>”的方式去查找属性。 新式类的搜索方式是采用“<strong>广度优先</strong>”的方式去查找属性。    </p>
+<h2 id="二：魔法方法："><a href="#二：魔法方法：" class="headerlink" title="二：魔法方法："></a>二：魔法方法：</h2><p><strong>1、何为魔法方法：</strong> 　　Python中，一定要区分开函数和方法的含义； 1.函数：类外部定义的，跟类没有直接关系的；形式： def func(<em>argv): 　　2.方法：class内部定义的函数（对象的方法也可以认为是属性）；分为两种： 　　　　① python自动产生的（魔法方法）：一般形式为 __func__()，python会在对应的时机自动调用该函数； 　　　　② 人为自定义的方法：一般和普通函数没有区别，只是定义在了class中而已 　　3.方法与函数的区别： 　　　　方法可认为是函数的特殊情况； 　　　　① 方法定义在class内部 　　　　② 方法的第一个参数应为 cls(类方法) 或者 self(实例方法)     <strong>2、魔法方法汇总：</strong> <img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/1.png" alt><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/2.png" alt><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/3.png" alt><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/4.png" alt> ①.以上所有的魔法方法，君采用__xx__形式（__为双 “_”，双下划线） ②.以上魔法方法为Python解释器自动调用，当然也可以手动调用 ③.魔法方法Python解释器自动给出默认的，因此除非需要改变其内部功能，其它时刻刻使用默认魔法方法 ④.魔法方法是针对class而言的，脱离了”类“谈magic_method是没有意义的 ⑤.</em>argv为可变的参数列表，类似C语言的va(variable argument),注意与指针的区别，python中暂时忘掉指针，因为python的内存机制都是解释器自动完成的</p>
 
       
     </div>
@@ -678,7 +678,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

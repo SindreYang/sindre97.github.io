@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="[info] python 使用 lambda 来创建匿名函数。 lambda只是一个表达式，函数体比def简单很多。 lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。 lambda函数拥有自己的命名空间，且不能访问自有参数列表之外或全局命名空间里的参数。 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-02T14:41:52.257Z">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第八节：函数作用域和匿名函数">
 <meta name="twitter:description" content="[info] python 使用 lambda 来创建匿名函数。 lambda只是一个表达式，函数体比def简单很多。 lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。 lambda函数拥有自己的命名空间，且不能访问自有参数列表之外或全局命名空间里的参数。 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数">
@@ -427,7 +427,7 @@
 <li>对当前层传入的参数可见</li>
 <li>对上层函数传入的参数可见</li>
 <li><p>对上层Lambda传入的参数可见</p>
-<p>局部变量和全局变量：详见：<a href="http://www.yx1024.top/archives/193" target="_blank" rel="noopener">点我</a>  </p>
+<p>局部变量和全局变量：详见：<a href="https://blog.mviai.com/images/archives/193" target="_blank" rel="noopener">点我</a>  </p>
 </li>
 </ol>
 <h2 id="闭包："><a href="#闭包：" class="headerlink" title="闭包："></a>闭包：</h2><p>在函数中可以（嵌套）定义另一个函数时，如果内部的函数引用了外部的函数的变量，则可能产生闭包。闭包可以用来在一个函数与一组“私有”变量之间创建关联关系。在给定函数被多次调用的过程中，这些私有变量能够保持其持久性。 条件： 1)必须有一个内嵌函数(函数里定义的函数）——这对应函数之间的嵌套 2)内嵌函数必须引用一个定义在闭合范围内(外部函数里)的变量——内部函数引用外部变量 3)外部函数必须返回内嵌函数——必须返回那个内部函数   陷阱： <strong>返回函数千万不要引用任何一个循环变量,或者在之后会发生改变的变量.</strong> bug代码如下：</p>
@@ -741,7 +741,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

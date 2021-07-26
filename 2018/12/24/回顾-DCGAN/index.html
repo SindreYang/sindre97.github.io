@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="1. DCGAN 简介:如何把CNN与GAN结合？DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:点我  2. 网络结构： 首先看图：网络改进点:简单解释">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN\DCGAN.png">
-<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN\work.png">
-<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN/0.png">
-<meta property="og:image" content="http://images.yx1024.top/回顾-DCGAN/1.png">
-<meta property="og:updated_time" content="2020-03-02T14:38:42.554Z">
+<meta property="og:image" content="https://blog.mviai.com/images/回顾-DCGAN/DCGAN.png">
+<meta property="og:image" content="https://blog.mviai.com/images/回顾-DCGAN/work.png">
+<meta property="og:image" content="https://blog.mviai.com/images/回顾-DCGAN/0.png">
+<meta property="og:image" content="https://blog.mviai.com/images/回顾-DCGAN/1.png">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回顾-DCGAN">
 <meta name="twitter:description" content="1. DCGAN 简介:如何把CNN与GAN结合？DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:点我  2. 网络结构： 首先看图：网络改进点:简单解释">
-<meta name="twitter:image" content="http://images.yx1024.top/回顾-DCGAN\DCGAN.png">
+<meta name="twitter:image" content="https://blog.mviai.com/images/回顾-DCGAN/DCGAN.png">
 
 
 
@@ -430,7 +430,7 @@
         <h1 id="1-DCGAN-简介"><a href="#1-DCGAN-简介" class="headerlink" title="1. DCGAN 简介:"></a>1. DCGAN 简介:</h1><p>如何把CNN与GAN结合？<br>DCGAN是这方面最好的尝试之一，DCGAN的原理和GAN是一样的，这里就不在赘述。<br>它只是把经典GAN中的G和D换成了两个卷积神经网络（CNN）。<br>但是，并不是直接替换就可以了， DCGAN 对卷积神经网络的结构做了一些改变，以提高样本的质量和收敛的速度。用了哪些方法!我们简单了解下,原文地址:<a href="https://arxiv.org/pdf/1511.06434.pdf" target="_blank" rel="noopener">点我</a></p>
 <hr>
 <h1 id="2-网络结构："><a href="#2-网络结构：" class="headerlink" title="2. 网络结构："></a>2. 网络结构：</h1><ul>
-<li><p>首先看图：<br><img src="http://images.yx1024.top/回顾-DCGAN\DCGAN.png" alt><br><strong>网络改进点:</strong><br><strong><font color="blue">简单解释下:<br>GAN 的第一层采用均匀噪声分布Z作为输入,因为它只是一个矩阵乘法操作所以可以称为全连接,但结果被重组为一个4维的张量,并作为卷积叠加（convolution stack）的开始。对于判别网络,最后卷积层是平滑的然后送入单个sigmoid输出。</font></strong></p>
+<li><p>首先看图：<br><img src="https://blog.mviai.com/images/回顾-DCGAN/DCGAN.png" alt><br><strong>网络改进点:</strong><br><strong><font color="blue">简单解释下:<br>GAN 的第一层采用均匀噪声分布Z作为输入,因为它只是一个矩阵乘法操作所以可以称为全连接,但结果被重组为一个4维的张量,并作为卷积叠加（convolution stack）的开始。对于判别网络,最后卷积层是平滑的然后送入单个sigmoid输出。</font></strong></p>
 <ul>
 <li>1.使用步幅卷积替代确定性空间池化函数(比如最大池化)，允许网络学习自身的空间下采样的方法应用在生成网络当中，在判别网络中允许它学习自己的空间上采样。</li>
 <li>2.在卷积层的中间地带直接分别连接到生成网络的输入和判别网络的输出系统也可以很好的工作。<ul>
@@ -445,7 +445,7 @@
 </ul>
 </li>
 </ul>
-<p><strong>总结:</strong><br><img src="http://images.yx1024.top/回顾-DCGAN\work.png" alt></p>
+<p><strong>总结:</strong><br><img src="https://blog.mviai.com/images/回顾-DCGAN/work.png" alt></p>
 <hr>
 <h3 id="训练细节上的改进"><a href="#训练细节上的改进" class="headerlink" title="训练细节上的改进:"></a>训练细节上的改进:</h3><ul>
 <li>1.训练图像除了缩放到tanh激活函数的[-1,1]范围之外,没有经过其他的预处理。</li>
@@ -460,8 +460,8 @@
 <ul>
 <li>注 :数据集用的cifar-10-batches-py</li>
 <li>结果:</li>
-<li>迭代一次<br><img src="http://images.yx1024.top/回顾-DCGAN/0.png" alt></li>
-<li>迭代二次<br><img src="http://images.yx1024.top/回顾-DCGAN/1.png" alt></li>
+<li>迭代一次<br><img src="https://blog.mviai.com/images/回顾-DCGAN/0.png" alt></li>
+<li>迭代二次<br><img src="https://blog.mviai.com/images/回顾-DCGAN/1.png" alt></li>
 </ul>
 
       
@@ -530,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/24/回顾-VAEGAN/" rel="next" title="回顾-VAEGAN">
-                <i class="fa fa-chevron-left"></i> 回顾-VAEGAN
+              <a href="/2018/12/24/破解MathType-方法/" rel="next" title="破解MathType-方法">
+                <i class="fa fa-chevron-left"></i> 破解MathType-方法
               </a>
             
           </div>
@@ -540,8 +540,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/25/The-size-of-tensor-a-(5)-must-match-the-size-of-tensor-b-(3)-at-non-singleton-dimension-3/" rel="prev" title="The size of tensor a (5) must match the size of tensor b (3) at non-singleton dimension 3">
-                The size of tensor a (5) must match the size of tensor b (3) at non-singleton dimension 3 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/24/回顾-VAEGAN/" rel="prev" title="回顾-VAEGAN">
+                回顾-VAEGAN <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -722,7 +722,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

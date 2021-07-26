@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="通过设置（system settings）–&amp;gt;network–&amp;gt;ipv4是查看dhcp分配ip为192.108.1.105；jetson nano已经默认开启了openssh-server服务。可以通过xshell直接连上，用教程一中设置的jetson登录；  可见Ubuntu版本是18.04.2为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；12345678">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/n1/n21.webp">
-<meta property="og:updated_time" content="2020-03-02T14:51:33.193Z">
+<meta property="og:image" content="https://blog.mviai.com/images/n1/n21.webp">
+<meta property="og:updated_time" content="2021-07-26T10:01:05.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jetson nano 配置">
 <meta name="twitter:description" content="通过设置（system settings）–&amp;gt;network–&amp;gt;ipv4是查看dhcp分配ip为192.108.1.105；jetson nano已经默认开启了openssh-server服务。可以通过xshell直接连上，用教程一中设置的jetson登录；  可见Ubuntu版本是18.04.2为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；12345678">
-<meta name="twitter:image" content="http://yoursite.com/n1/n21.webp">
+<meta name="twitter:image" content="https://blog.mviai.com/images/n1/n21.webp">
 
 
 
@@ -425,11 +425,11 @@
 
       
         <p>通过设置（system settings）–&gt;network–&gt;ipv4是查看dhcp分配ip为192.108.1.105；<br>jetson nano已经默认开启了openssh-server服务。<br>可以通过xshell直接连上，用教程一中设置的jetson登录；</p>
-<p><img src="/n1/n21.webp" alt></p>
+<p><img src="https://blog.mviai.com/images/n1/n21.webp" alt></p>
 <p>可见Ubuntu版本是18.04.2<br>为了方便操作，设置初始化root的密码；设置为jetson,具体操作如下；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jetson@jetson-desktop:~$ sudo passwd</span><br><span class="line">[sudo] password for jetson: </span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line">jetson@jetson-desktop:~$ su</span><br><span class="line">Password: </span><br><span class="line">root@jetson-desktop:/home/jetson# </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">设置允许超级管理员远程访问</span><br><span class="line"># vi /etc/ssh/sshd_config</span><br><span class="line">找到并用#注释掉这行：PermitRootLogin prohibit-password</span><br><span class="line"></span><br><span class="line">新建一行 添加：PermitRootLogin yes</span><br></pre></td></tr></table></figure></p>
 <p>重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># service ssh restart</span><br></pre></td></tr></table></figure></p>
 <p>设置固定ip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/etc/network/interfaces</span><br><span class="line"># interfaces(5) file used by ifup(8) and ifdown(8)</span><br><span class="line"># Include files from /etc/network/interfaces.d:</span><br><span class="line">source-directory /etc/network/interfaces.d</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.1.105</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 192.168.1.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/etc/systemd/resolved.conf</span><br><span class="line">[Resolve]</span><br><span class="line">DNS==8.8.8.8 223.5.5.5</span><br><span class="line">#FallbackDNS=8.8.8.8</span><br><span class="line">#Domains=</span><br><span class="line">#LLMNR=no</span><br><span class="line">#MulticastDNS=no</span><br><span class="line">#DNSSEC=no</span><br><span class="line">#Cache=yes</span><br><span class="line">#DNSStubListener=yes</span><br></pre></td></tr></table></figure></p>
-<p>重启再连接；联网正常；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (183.232.231.174) 56(84) bytes of data.</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=1 ttl=57 time=5.70 ms</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=2 ttl=57 time=5.61 ms</span><br><span class="line">^C</span><br><span class="line">--- www.a.shifen.com ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 1002ms</span><br><span class="line">rtt min/avg/max/mdev = 5.617/5.661/5.706/0.087 ms</span><br></pre></td></tr></table></figure></p>
+<p>重启再连接；联网正常；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@jetson-desktop:~# ping www.yangxin.com</span><br><span class="line">PING www.a.shifen.com (183.232.231.174) 56(84) bytes of data.</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=1 ttl=57 time=5.70 ms</span><br><span class="line">64 bytes from 183.232.231.174 (183.232.231.174): icmp_seq=2 ttl=57 time=5.61 ms</span><br><span class="line">^C</span><br><span class="line">--- www.a.shifen.com ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 1002ms</span><br><span class="line">rtt min/avg/max/mdev = 5.617/5.661/5.706/0.087 ms</span><br></pre></td></tr></table></figure></p>
 <p>2、默认组件<br>Jetson nano的镜像已经自带了JetPack，cuda，cudnn，opencv组件和sample，这些例子安装路径如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TensorRT    /usr/src/tensorrt/samples/</span><br><span class="line">CUDA    /usr/local/cuda-/samples/</span><br><span class="line">cuDNN   /usr/src/cudnn_samples_v7/</span><br><span class="line">Multimedia API  /usr/src/tegra_multimedia_api/</span><br><span class="line">VisionWorks /usr/share/visionworks/sources/samples/ /usr/share/visionworks-tracking/sources/samples/ /usr/share/visionworks-sfm/sources/samples/</span><br><span class="line">OpenCV  /usr/share/OpenCV/samples/</span><br></pre></td></tr></table></figure></p>
 <p>2.0获取超级</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
@@ -522,8 +522,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/15/pytorch维度报错/" rel="next" title="RuntimeError output with shape [1,x,x] doesn't match the broadcast shape [3, x, x]">
-                <i class="fa fa-chevron-left"></i> RuntimeError output with shape [1,x,x] doesn't match the broadcast shape [3, x, x]
+              <a href="/2019/06/10/Nvidia-Jetson-nano-介绍/" rel="next" title="Jetson nano 介绍">
+                <i class="fa fa-chevron-left"></i> Jetson nano 介绍
               </a>
             
           </div>
@@ -532,8 +532,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/10/Nvidia-Jetson-nano-介绍/" rel="prev" title="Jetson nano 介绍">
-                Jetson nano 介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/01/第一部分-GitKraken破解及教程/" rel="prev" title="第一部分:GitKraken破解及教程">
+                第一部分:GitKraken破解及教程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -689,7 +689,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

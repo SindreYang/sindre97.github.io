@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="[danger] 函数定义（一段代码表示）：函数是一段具有特定功能的，可重复使用的语句组 函数其实就是“功能” 有什么用呢？ 以后方便使用，模块化，代码简洁，可重复调用   书写格式：def  (函数名）（参数（0个或者多个））： 函数体 return （返回值）   注：函数不调用，它是不会去执行   当函数调用时 分了四种参数：必选参数（在函数体参数项没有赋值），可选参数（默认参数）（在函数体">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/math.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/集合.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/io.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/反射1.png">
-<meta property="og:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/反射2-1.png">
-<meta property="og:updated_time" content="2020-03-02T14:42:30.344Z">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/math.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/集合.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/io.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/反射1.png">
+<meta property="og:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/反射2-1.png">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第七节：函数基础和函数参数">
 <meta name="twitter:description" content="[danger] 函数定义（一段代码表示）：函数是一段具有特定功能的，可重复使用的语句组 函数其实就是“功能” 有什么用呢？ 以后方便使用，模块化，代码简洁，可重复调用   书写格式：def  (函数名）（参数（0个或者多个））： 函数体 return （返回值）   注：函数不调用，它是不会去执行   当函数调用时 分了四种参数：必选参数（在函数体参数项没有赋值），可选参数（默认参数）（在函数体">
-<meta name="twitter:image" content="http://www.yx1024.top/wp-content/uploads/2018/05/math.png">
+<meta name="twitter:image" content="https://blog.mviai.com/images/wp-content/uploads/2018/05/math.png">
 
 
 
@@ -422,10 +422,10 @@
 <h3 id="书写格式："><a href="#书写格式：" class="headerlink" title="书写格式："></a>书写格式：</h3><p>def  (函数名）（参数（0个或者多个））<strong>：</strong> 函数体 return （返回值）   <strong>注：函数不调用，它是不会去执行</strong>   当函数调用时 分了四种参数：必选参数（在函数体参数项没有赋值），可选参数（默认参数）（在函数体参数项赋了值），可变参数（函数体参数项<em>a表示），关键字参数（函数体参数项**b） \</em>args是可变参数，args接收的是一个tuple（元组–一种特殊的列表）； **kw是关键字参数，kw接收的是一个dict（字典）。 注意，参数定义的顺序必须是：必选参数、默认参数、可变参数和关键字参数。(星星越多，约往后） 如：def  fun(a, b, c=0, *args, **kw): 返回值return 可以直接使用return 表示返回保留字。 return可以传递0个返回值，也可以返回多个返回值    </p>
 <h2 id="局部变量与全局变量区别："><a href="#局部变量与全局变量区别：" class="headerlink" title="局部变量与全局变量区别："></a>局部变量与全局变量区别：</h2><p>简单来说就是 函数体外定义的就是全局变量 函数体内定义的就是局部变量 区别： 1.局部变量在函数体运行完了就释放了 2.基本数据类型，无论重不重名，局部变量与全局变量不同 3.如果硬要在函数内部去声明全局变量，可以通过global声明</p>
 <h2 id="Python内置函数："><a href="#Python内置函数：" class="headerlink" title="Python内置函数："></a>Python内置函数：</h2><p>如果记不住，记住方法，善用help（）—-查看帮助   比如看数学运算类的方法  import math dir(math)  help(math) 查看所有内置函数：可以在idle里面使用命令dir(__builtins__)查看python的所有你内置函数</p>
-<h3 id="数学类"><a href="#数学类" class="headerlink" title="数学类:"></a>数学类:</h3><p><img src="http://www.yx1024.top/wp-content/uploads/2018/05/math.png" alt></p>
-<h3 id="集合类："><a href="#集合类：" class="headerlink" title="集合类："></a>集合类：</h3><p><img src="http://www.yx1024.top/wp-content/uploads/2018/05/集合.png" alt></p>
-<h3 id="io操作类："><a href="#io操作类：" class="headerlink" title="io操作类："></a>io操作类：</h3><p><img src="http://www.yx1024.top/wp-content/uploads/2018/05/io.png" alt></p>
-<h3 id="函数操作类："><a href="#函数操作类：" class="headerlink" title="函数操作类："></a>函数操作类：</h3><p><img src="http://www.yx1024.top/wp-content/uploads/2018/05/反射1.png" alt> <img src="http://www.yx1024.top/wp-content/uploads/2018/05/反射2-1.png" alt> 详情链接：<a href="https://www.cnblogs.com/MrFiona/p/5958896.html" target="_blank" rel="noopener">点我</a> [/danger]</p>
+<h3 id="数学类"><a href="#数学类" class="headerlink" title="数学类:"></a>数学类:</h3><p><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/math.png" alt></p>
+<h3 id="集合类："><a href="#集合类：" class="headerlink" title="集合类："></a>集合类：</h3><p><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/集合.png" alt></p>
+<h3 id="io操作类："><a href="#io操作类：" class="headerlink" title="io操作类："></a>io操作类：</h3><p><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/io.png" alt></p>
+<h3 id="函数操作类："><a href="#函数操作类：" class="headerlink" title="函数操作类："></a>函数操作类：</h3><p><img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/反射1.png" alt> <img src="https://blog.mviai.com/images/wp-content/uploads/2018/05/反射2-1.png" alt> 详情链接：<a href="https://www.cnblogs.com/MrFiona/p/5958896.html" target="_blank" rel="noopener">点我</a> [/danger]</p>
 
       
     </div>
@@ -685,7 +685,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

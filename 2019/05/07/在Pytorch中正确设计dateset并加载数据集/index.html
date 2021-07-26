@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="落叶无痕">
 <meta property="og:description" content="一、前言在构建深度学习任务中，最重要的当然是如何设计我们的神经网络。 但在实际的训练过程中，如何正确编写、使用加载数据集的代码同样是不可缺少的一环，在不同的任务中不同数据格式的任务中，加载数据的代码难免会有差别。为了避免重复编写并且避免一些与算法无关的错误，我们有必要讨论一下如何正确加载数据集。 这里只讨论如何加载图像格式的数据集，对于文字或者其他的数据集不进行讨论。 二、正确加载数据集加载数据集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/07/在Pytorch中正确设计dateset并加载数据集/images.yx1024.top/dateset并加载数据集/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/07/在Pytorch中正确设计dateset并加载数据集/images.yx1024.top/dateset并加载数据集/2.png">
-<meta property="og:updated_time" content="2020-03-02T14:57:28.167Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/07/在Pytorch中正确设计dateset并加载数据集/https://blog.mviai.com/images/dateset并加载数据集/1.png">
+<meta property="og:image" content="https://blog.mviai.com/images/dateset并加载数据集/2.png">
+<meta property="og:updated_time" content="2021-07-26T09:58:02.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Pytorch中正确设计dateset并加载数据集">
 <meta name="twitter:description" content="一、前言在构建深度学习任务中，最重要的当然是如何设计我们的神经网络。 但在实际的训练过程中，如何正确编写、使用加载数据集的代码同样是不可缺少的一环，在不同的任务中不同数据格式的任务中，加载数据的代码难免会有差别。为了避免重复编写并且避免一些与算法无关的错误，我们有必要讨论一下如何正确加载数据集。 这里只讨论如何加载图像格式的数据集，对于文字或者其他的数据集不进行讨论。 二、正确加载数据集加载数据集">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/07/在Pytorch中正确设计dateset并加载数据集/images.yx1024.top/dateset并加载数据集/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/07/在Pytorch中正确设计dateset并加载数据集/https://blog.mviai.com/images/dateset并加载数据集/1.png">
 
 
 
@@ -428,7 +428,7 @@
         <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>在构建深度学习任务中，最重要的当然是如何设计我们的神经网络。</p>
 <p>但在实际的训练过程中，如何正确编写、使用加载数据集的代码同样是不可缺少的一环，在不同的任务中不同数据格式的任务中，加载数据的代码难免会有差别。为了避免重复编写并且避免一些与算法无关的错误，我们有必要讨论一下如何正确加载数据集。</p>
 <p>这里只讨论如何加载图像格式的数据集，对于文字或者其他的数据集不进行讨论。</p>
-<h1 id="二、正确加载数据集"><a href="#二、正确加载数据集" class="headerlink" title="二、正确加载数据集"></a>二、正确加载数据集</h1><p>加载数据集是深度学习训练过程中不可缺少的一环。一般地，在平常的时候，我们第一个想到的是将所有需要的数据聚成一堆一堆然后通过构建list去一一读取我们的数据：<br><img src="http:images.yx1024.top/dateset并加载数据集/1.png" alt><br>假如我们编写了上述的图像加载数据集代码，在训练中我们就可以依靠<font color="#ff0000">get_training_data()</font>这个函数来得到batch_size个数据，从而进行训练，乍看下去没什么问题，但是一旦我们的数据量超过1000：</p>
+<h1 id="二、正确加载数据集"><a href="#二、正确加载数据集" class="headerlink" title="二、正确加载数据集"></a>二、正确加载数据集</h1><p>加载数据集是深度学习训练过程中不可缺少的一环。一般地，在平常的时候，我们第一个想到的是将所有需要的数据聚成一堆一堆然后通过构建list去一一读取我们的数据：<br><img src="http:https://blog.mviai.com/images/dateset并加载数据集/1.png" alt><br>假如我们编写了上述的图像加载数据集代码，在训练中我们就可以依靠<font color="#ff0000">get_training_data()</font>这个函数来得到batch_size个数据，从而进行训练，乍看下去没什么问题，但是一旦我们的数据量超过1000：</p>
 <ul>
 <li>将所有的图像数据直接加载到numpy数据中会占用大量的内存</li>
 <li>由于需要对数据进行导入，每次训练的时候在数据读取阶段会占用大量的时间</li>
@@ -439,7 +439,7 @@
 <p>本文将会介绍如何根据Pytorch官方提供的数据加载模板，去编写自己的加载数据集类，从而实现高效稳定地加载我们的数据集。(Pytorch官方教程介绍)</p>
 <h1 id="三、Dataset类"><a href="#三、Dataset类" class="headerlink" title="三、Dataset类"></a>三、Dataset类</h1><p><font color="#ff0000">Dataset</font>类是Pytorch中图像数据集中最为重要的一个类，也是Pytorch中所有数据集加载类中应该继承的父类。其中父类中的两个私有成员函数必须被重载，否则将会触发错误提示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getitem</span><span class="params">(self, index)</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">len</span><span class="params">(self)</span>:</span></span><br></pre></td></tr></table></figure></p>
 <p>其中<font color="#ff0000">  <code>__len__</code> </font>应该返回数据集的大小，而<font color="#ff0000"><code>__getitem__</code></font>应该编写支持数据集索引的函数，例如通过<font color="#ff0000"><code>dataset [i]</code></font>可以得到数据集中的第<font color="#ff0000"> i+1</font>个数据。</p>
-<p><img src="http:images.yx1024.top/dateset并加载数据集/2.png" alt></p>
+<p><img src="https://blog.mviai.com/images/dateset并加载数据集/2.png" alt></p>
 <p>上面所示的这个类，其实也就是起到了封装我们加载函数的作用(对象处理起来更加方便明朗么)，在继承了这个Dataset类之后，我们需要实现的核心功能便是<font color="#ff0000">  <code>__getitem__()</code> </font>函数，<font color="#ff0000">  <code>__getitem__()</code> </font>是Python中类的默认成员函数，我们通过实现这个成员函数实现可以通过索引来返回图像数据的功能。</p>
 <p>那么怎么得到图像从而去返回呢？当然不会直接将图像数据加载到内存中，相反我们只需要得到图像的地址就足够了，然后在调用的时候通过不同的读取方式读取即可。</p>
 <p>关于读取方式：<a href="https://oldpan.me/archives/pytorch-transforms-opencv-scikit-image" target="_blank" rel="noopener">https://oldpan.me/archives/pytorch-transforms-opencv-scikit-image</a></p>
@@ -728,7 +728,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
